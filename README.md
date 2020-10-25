@@ -32,7 +32,7 @@ dotfiles config --local status.showUntrackedFiles no
 dotfiles config --local core.sparsecheckout true
 echo '/*
 !README.md
-' > $HOME/.dotfiles/.git/info/sparse-checkout
+' > $HOME/.dotfiles/info/sparse-checkout
 dotfiles pull
 ```
 ### Explanation
@@ -53,7 +53,7 @@ dotfiles config --local status.showUntrackedFiles no
 dotfiles config --local core.sparsecheckout true
 echo '/*
 !README.md
-' > $HOME/.dotfiles/.git/info/sparse-checkout
+' > $HOME/.dotfiles/info/sparse-checkout
 ```
 > Pull the actual dotfiles into the home directory
 ```shell
