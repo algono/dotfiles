@@ -30,7 +30,7 @@ alias la='ls -al'
 alias l='la'
 alias ll='ls -l'
 
-# xdg-open to powershell
+# xdg-open to file explorer (for autojump) or powershell
 xdg-open ()
 {
   if [ -d "$1" ]
