@@ -40,7 +40,7 @@ dotfiles checkout
 ```shell
 git clone --bare https://github.com/algono/dotfiles $HOME/.dotfiles
 ```
-> (Only for the current session) Create dotfiles alias to make the following commands shorter and easier to understand
+> Create 'dotfiles' alias to make the following commands shorter and easier to understand
 ```shell
 alias dotfiles='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 ```
@@ -63,7 +63,7 @@ dotfiles checkout
 #### The last command didn't work. It told me that some files where going to be overwritten and failed.
 If you already have some of the files from this repo, the last command will warn you and won't run.
 Here are some possible solutions to that:
-- **Overwrite** all matching files with the ones from this repo
+- **Overwrite** all matching files with the ones from this repo:
 ```shell
 dotfiles reset --hard
 ```
