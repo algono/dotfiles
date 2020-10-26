@@ -43,6 +43,28 @@ xdg-open ()
   fi
 }
 
-# dotfiles stow alias
-alias dotfiles='/usr/bin/stow -d ~/dotfiles/packages -t ~'
+dotfilesDir=~/dotfiles/packages
+
+# dotfiles stow function
+dotfiles ()
+{
+  local args
+  local packages
+  args=()
+  packages=()
+  while test $# -gt 0; do
+    case "$1" in
+      -a|--all)
+        shift
+        packages=("$(/usr/bin/ls --color=never $dotfilesDir)")
+        ;;
+      *)
+        args+="$1"
+        shift
+        ;;
+    esac
+  done
+
+  echo "$args[@] $packages[@]" | xargs /usr/bin/stow -d "$dotfilesDir" -t ~
+}
 alias dtf='dotfiles'

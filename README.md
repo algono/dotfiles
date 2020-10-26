@@ -54,17 +54,17 @@ This method requires `stow`. You can install it as any other apt package.
 
 ### Script
 ```shell
-git clone https://github.com/algono/dotfiles $HOME/dotfiles
-stow -d ~/dotfiles/packages -t ~ *
+git clone https://github.com/algono/dotfiles ~/dotfiles
+echo "$(/usr/bin/ls --color=never ~/dotfiles/packages)" | xargs /usr/bin/stow -d ~/dotfiles/packages -t ~
 ```
 ### Explanation
 > Clone repo in dotfiles directory
 ```shell
-git clone https://github.com/algono/dotfiles $HOME/dotfiles
+git clone https://github.com/algono/dotfiles ~/dotfiles
 ```
 > Create symlinks for our dotfiles into the home directory
 ```shell
-stow -d ~/dotfiles/packages -t ~ *
+echo "$(/usr/bin/ls --color=never ~/dotfiles/packages)" | xargs /usr/bin/stow -d ~/dotfiles/packages -t ~
 ```
 
 ### The last command didn't work. It told me that some files were going to be overwritten and failed.
