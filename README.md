@@ -50,47 +50,24 @@ chsh $USER
 Then type `/bin/zsh`
 
 ## How to clone this repo
+This method requires `stow`. You can install it as any other apt package.
+
 ### Script
 ```shell
-git clone --bare https://github.com/algono/dotfiles $HOME/.dotfiles
-alias dotfiles='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
-dotfiles config --local status.showUntrackedFiles no
-dotfiles config --local core.sparsecheckout true
-echo '/*
-!README.md
-' > $HOME/.dotfiles/info/sparse-checkout
-dotfiles checkout
+git clone https://github.com/algono/dotfiles $HOME/dotfiles
+stow -d ~/dotfiles/packages -t ~ *
 ```
 ### Explanation
-> Clone bare repo in dotfiles directory, without getting its contents
+> Clone repo in dotfiles directory
 ```shell
-git clone --bare https://github.com/algono/dotfiles $HOME/.dotfiles
+git clone https://github.com/algono/dotfiles $HOME/dotfiles
 ```
-> Create 'dotfiles' alias to make the following commands shorter and easier to understand
+> Create symlinks for our dotfiles into the home directory
 ```shell
-alias dotfiles='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
-```
-> Don't show untracked files when doing commands like `status` (being your home directory, there will probably be *a lot*)
-```shell
-dotfiles config --local status.showUntrackedFiles no
-```
-> Prevent this readme file from being checked out into your home directory
-```shell
-dotfiles config --local core.sparsecheckout true
-echo '/*
-!README.md
-' > $HOME/.dotfiles/info/sparse-checkout
-```
-> Checkout the actual dotfiles into the home directory
-```shell
-dotfiles checkout
+stow -d ~/dotfiles/packages -t ~ *
 ```
 
-#### The last command didn't work. It told me that some files were going to be overwritten and failed.
+### The last command didn't work. It told me that some files were going to be overwritten and failed.
 If you already have some of the files from this repo, the last command will warn you and won't run.
-Here are some possible solutions to that:
-- **Overwrite** all matching files with the ones from this repo:
-```shell
-dotfiles reset --hard
-```
-- Make backups of these files *(example: `mv .dotfile .dotfile.bak`)*, then re-run the last command.
+
+`Stow` does not have any option to overwrite files, so you can either **make backups** of these files *(example: `mv .dotfile .dotfile.bak`)*, or just **delete them**, and then re-run the last command.
