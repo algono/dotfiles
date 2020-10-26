@@ -44,5 +44,5 @@ xdg-open ()
 }
 
 # dotfiles stow alias
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
+alias dotfiles='/usr/bin/stow -d ~/dotfiles/packages -t ~'
 alias dtf='dotfiles'
