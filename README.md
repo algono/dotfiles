@@ -2,21 +2,46 @@
 My dotfiles for **Ubuntu**
 
 ## Dependencies
-### Packages
+### Packages (apt)
+- autojump
+- neofetch
+#### ZSH only
 - zsh
 - zsh-syntax-highlighting
 - zsh-autosuggestions
-- autojump
-- neofetch
 ### Git repos
+#### ZSH only
 - [powerlevel10k](https://github.com/romkatv/powerlevel10k)
+### Other
+- exa (requires 'cargo' apt package)
+#### Bash only
+- powerline-go (requires 'golang-go' apt package)
 
 ### Instalation script
+#### Everything
 ```shell
+sudo apt install cargo
+cargo install exa
+sudo apt install golang-go
+go get -u github.com/justjanne/powerline-go
 sudo apt install zsh zsh-syntax-highlighting zsh-autosuggestions autojump neofetch
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
 ```
-
+#### Bash only
+```shell
+sudo apt install cargo
+cargo install exa
+sudo apt install golang-go
+go get -u github.com/justjanne/powerline-go
+sudo apt install autojump neofetch
+```
+#### ZSH only
+```shell
+sudo apt install cargo
+cargo install exa
+sudo apt install zsh zsh-syntax-highlighting zsh-autosuggestions autojump neofetch
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
+```
 ### Change shell to ZSH (optional)
 ```shell
 chsh $USER
