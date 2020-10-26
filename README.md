@@ -60,7 +60,7 @@ echo '/*
 dotfiles checkout
 ```
 
-#### The last command didn't work. It told me that some files where going to be overwritten and failed.
+#### The last command didn't work. It told me that some files were going to be overwritten and failed.
 If you already have some of the files from this repo, the last command will warn you and won't run.
 Here are some possible solutions to that:
 - **Overwrite** all matching files with the ones from this repo:
