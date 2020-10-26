@@ -73,7 +73,7 @@ alias dotfiles='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 ```shell
 dotfiles config --local status.showUntrackedFiles no
 ```
-> Prevent this readme file being checked out into your home directory
+> Prevent this readme file from being checked out into your home directory
 ```shell
 dotfiles config --local core.sparsecheckout true
 echo '/*
