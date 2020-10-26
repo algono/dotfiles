@@ -17,7 +17,7 @@ My dotfiles for **Ubuntu**
 #### Bash only
 - powerline-go (requires 'golang-go' apt package)
 
-### Instalation script
+### Installation script
 #### Everything
 ```shell
 sudo apt install cargo
@@ -42,6 +42,7 @@ cargo install exa
 sudo apt install zsh zsh-syntax-highlighting zsh-autosuggestions autojump neofetch
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
 ```
+
 ### Change shell to ZSH (optional)
 ```shell
 chsh $USER
