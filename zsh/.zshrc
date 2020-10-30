@@ -1,5 +1,7 @@
-# Launch neofetch on start
-neofetch
+# Shared autostart commands (with output)
+if [ -f ~/.shared_autostart ]; then
+    . ~/.shared_autostart --with-output
+fi
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -65,3 +67,8 @@ PATH=$PATH:"$HOME/.cargo/bin"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Shared autostart commands (no output)
+if [ -f ~/.shared_autostart ]; then
+    . ~/.shared_autostart --no-output
+fi

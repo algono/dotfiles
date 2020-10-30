@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# neofetch with WSL 2 added to it
+alias neofetch="neofetch | sed '/OS/ s/$/[WSL 2]/'"
+
+# autostart programs that output to console
+_autostart_prompt() {
+  neofetch
+}
+
+# autostart programs that don't output nothing to console
+_autostart_no_prompt() {
+  
+}
+
+([ "$1" = "--with-output" ] || [ "$1" = "--all" ]) && _autostart_prompt
+([ "$1" = "--no-output" ] || [ "$1" = "--all" ]) && _autostart_no_prompt

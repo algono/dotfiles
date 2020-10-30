@@ -138,5 +138,7 @@ fi
 # Load autojump
 source /usr/share/autojump/autojump.bash 2>/dev/null
 
-# Launch neofetch on start
-neofetch
+# Shared autostart commands (with or without output)
+if [ -f ~/.shared_autostart ]; then
+    . ~/.shared_autostart --all
+fi
