@@ -1,5 +1,5 @@
 # Dotfiles
-My dotfiles for **Ubuntu**
+My dotfiles for **Ubuntu (WSL 2)**
 
 ## Dependencies
 ### Packages (apt)
