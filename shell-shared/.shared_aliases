@@ -56,7 +56,7 @@ dotfiles ()
     case "$1" in
       -a|--all)
         shift
-        packages=("$(/usr/bin/ls --color=never --ignore='README.*' $dotfilesDir)")
+        packages=("$(find $dotfilesDir/* -maxdepth 1 -name ".*" -o -type d -prune -printf "%f\n")")
         ;;
       *)
         args+="$1"

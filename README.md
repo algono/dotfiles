@@ -55,7 +55,7 @@ This method requires `stow`. You can install it as any other apt package.
 ### Script
 ```shell
 git clone https://github.com/algono/dotfiles ~/dotfiles
-echo "$(/usr/bin/ls --color=never --ignore='README.*' ~/dotfiles)" | xargs /usr/bin/stow -d ~/dotfiles -t ~
+find ~/dotfiles/* -maxdepth 1 -name ".*" -o -type d -prune -printf "%f\n" | xargs /usr/bin/stow -d ~/dotfiles -t ~
 ```
 ### Explanation
 > Clone repo in dotfiles directory
@@ -63,8 +63,9 @@ echo "$(/usr/bin/ls --color=never --ignore='README.*' ~/dotfiles)" | xargs /usr/
 git clone https://github.com/algono/dotfiles ~/dotfiles
 ```
 > Create symlinks for our dotfiles into the home directory
+> (this command matches all non-hidden directories inside the 'dotfiles' folder)
 ```shell
-echo "$(/usr/bin/ls --color=never --ignore='README.*' ~/dotfiles)" | xargs /usr/bin/stow -d ~/dotfiles -t ~
+find ~/dotfiles/* -maxdepth 1 -name ".*" -o -type d -prune -printf "%f\n" | xargs /usr/bin/stow -d ~/dotfiles -t ~
 ```
 
 ### The last command didn't work. It told me that some files were going to be overwritten and failed.
