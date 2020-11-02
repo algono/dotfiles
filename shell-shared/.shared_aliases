@@ -32,14 +32,14 @@ alias la='ls -al'
 alias l='la'
 alias ll='ls -l'
 
-# xdg-open to file explorer (for autojump) or powershell
+# xdg-open directories in file explorer (for autojump)
 xdg-open ()
 {
   if [ -d "$1" ]
   then
     explorer.exe "$(wslpath -w "$1")"
   else
-    powershell.exe -c start "$1"
+    /usr/bin/xdg-open "$@"
   fi
 }
 
