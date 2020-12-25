@@ -10,9 +10,11 @@ _autostart_prompt() {
 
 # autostart programs that don't output nothing to console
 _autostart_no_prompt() {
-  # ':' = do nothing operator - added so that bash doesn't complain
-  # You can remove it if you add any command here
-  :
+  # Add local binaries to PATH
+  [ -d "$HOME/.local/bin" ] && PATH=$PATH:"$HOME/.local/bin"
+
+  # Add cargo binaries to PATH
+  [ -d "$HOME/.cargo/bin" ] && PATH=$PATH:"$HOME/.cargo/bin"
 }
 
 ([ "$1" = "--with-output" ] || [ "$1" = "--all" ]) && _autostart_prompt

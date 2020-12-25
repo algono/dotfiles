@@ -123,9 +123,6 @@ fi
 ###########################  CUSTOM  #################################
 ######################################################################
 
-# Add cargo binaries to PATH
-PATH=$PATH:"$HOME/.cargo/bin"
-
 # Powerline-Go prompt
 GOPATH=$HOME/go
 function _update_ps1() {
