@@ -68,3 +68,7 @@ dotfiles ()
   echo "$args[@] $packages[@]" | xargs /usr/bin/stow -d "$dotfilesDir" -t ~
 }
 alias dtf='dotfiles'
+
+# youtube-dl aliases
+alias yta='youtube-dl -x --audio-format mp3'
+alias ytv='youtube-dl -f mp4'
