@@ -7,7 +7,8 @@ alias neofetch="neofetch | sed '/OS/ s/$/[WSL 2]/'"
 _autostart_prompt() {
   neofetch
 
-  # Source nvm plugin (if it exists)
+  # Source zsh-nvm plugin (if it exists)
+  # (https://github.com/lukechilds/zsh-nvm)
   if [ -f "$HOME/.zsh-nvm/zsh-nvm.plugin.zsh" ]
   then  
     # The autoload command only exists in zsh, and the nvm plugin uses it
