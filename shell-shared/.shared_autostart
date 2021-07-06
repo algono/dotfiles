@@ -1,11 +1,21 @@
 #!/bin/sh
 
-# neofetch with WSL 2 added to it
+# neofetch with 'WSL 2' added to it
 alias neofetch="neofetch | sed '/OS/ s/$/[WSL 2]/'"
 
 # autostart programs that output to console
 _autostart_prompt() {
   neofetch
+
+  # Source nvm plugin (if it exists)
+  if [ -f "$HOME/.zsh-nvm/zsh-nvm.plugin.zsh" ]
+  then  
+    # The autoload command only exists in zsh, and the nvm plugin uses it
+    # So, if it doesn't exist, just create an empty function so it doesn't show an error message (it should still work, at least in bash)
+    if ! command -v autoload >/dev/null; then autoload() { :; }; fi
+    
+    source "$HOME/.zsh-nvm/zsh-nvm.plugin.zsh"
+  fi
 }
 
 # autostart programs that don't output nothing to console
