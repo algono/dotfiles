@@ -50,17 +50,45 @@ chsh $USER
 Then type `/bin/zsh`
 
 ## How to clone this repo
-This method requires `stow`. You can install it as any other apt package.
+
+### Packages needed
+This method requires `stow` for creating symlinks and `ed` for custom `.bashrc` support.
+```shell
+sudo apt install stow ed
+```
 
 ### Script
 ```shell
 git clone https://github.com/algono/dotfiles ~/dotfiles
+
+if [ -f ~/.bashrc ]; then mv -f ~/.bashrc ~/dotfiles/bash && rm -f ~/.bashrc
+elif [ -f /etc/skel/.bashrc ]; then mv -f /etc/skel/.bashrc ~/dotfiles/bash
+fi
+
+if type ed >/dev/null 2>&1 && [ -n $custom_bashrc ]
+then
+  ed ~/dotfiles/bash/.bashrc < ~/dotfiles/.patches/bashrc-patch.ed
+fi
+
 find ~/dotfiles/* -maxdepth 1 -name ".*" -o -type d -prune -printf "%f\n" | xargs /usr/bin/stow -d ~/dotfiles -t ~
 ```
 ### Explanation
 > Clone repo in dotfiles directory
 ```shell
 git clone https://github.com/algono/dotfiles ~/dotfiles
+```
+> If there is a custom *.bashrc* (either in the user's personal folder or in the system's *skel* folder), use it as a base instead of the fallback one from the dotfiles
+```shell
+if [ -f ~/.bashrc ]; then mv -f ~/.bashrc ~/dotfiles/bash && rm -f ~/.bashrc
+elif [ -f /etc/skel/.bashrc ]; then mv -f /etc/skel/.bashrc ~/dotfiles/bash
+fi
+```
+> If the *ed* command is available and a custom *.bashrc* was found (it probably was), use the *ed* command to apply the relevant changes to the custom *.bashrc* file (Note: You should backup `~/.bashrc` first if you have that file, as this method has not been extensively tested and it could break it)
+```shell
+if type ed >/dev/null 2>&1 && [ -n $custom_bashrc ]
+then
+  ed ~/dotfiles/bash/.bashrc < ~/dotfiles/.patches/bashrc.patch.ed
+fi
 ```
 > Create symlinks for our dotfiles into the home directory
 > (this command matches all non-hidden directories inside the 'dotfiles' folder)

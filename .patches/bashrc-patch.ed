@@ -1,0 +1,46 @@
+H
+# Remove (l, la, ll) ls aliases (if any)
+g/alias l[al]\?=/d
+# Remove all comments regarding ls aliases
+g/#.*ls aliases/d
+# Save changes
+w
+# Add custom config to the end of the file
+$a
+
+
+######################################################################
+###########################  CUSTOM  #################################
+######################################################################
+
+# some more ls aliases
+alias la='ls -al'
+alias l='la'
+alias ll='ls -l'
+
+# Powerline-Go prompt
+GOPATH=$HOME/go
+function _update_ps1() {
+    PS1="$($GOPATH/bin/powerline-go -error $? -hostname-only-if-ssh -newline -shell bash -jobs $(jobs -p | wc -l))"
+}
+if [ "$TERM" != "linux" ] && [ -f "$GOPATH/bin/powerline-go" ]; then
+    PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
+fi
+
+# Load autojump
+source /usr/share/autojump/autojump.bash 2>/dev/null
+
+# Shared autostart commands (with or without output)
+if [ -f ~/.shared_autostart ]; then
+    . ~/.shared_autostart --all
+fi
+.
+w
+# If the ls alias is not present in the file, add it to the end
+# (this is to make sure that the following change does not result in an error)
+r !if [ -z "$(grep "alias ls=" %)" ]; then echo -e "\nalias ls=\n"; else echo ""; fi
+w
+# Change ls alias to use exa
+,s/alias ls=.*$/alias ls='exa --color=always --group-directories-first'/
+# Save changes and quit
+wq
