@@ -1,17 +1,30 @@
 #!/bin/sh
 
 # Global neofetch config as parameters
-neofetch_config="--disable packages cpu gpu"
+neofetch_params="--disable packages cpu gpu"
 
 # If we are in a WSL based system, add 'WSL 2' to neofetch's OS label
-type wslpath >/dev/null 2>&1 && neofetch_config="$neofetch_config --ascii_distro 'ubuntu_small' --disable term | sed '/OS/ s/$/[WSL 2]/'"
+if type wslpath >/dev/null 2>&1
+then
+  neofetch_params="$neofetch_params --ascii_distro 'ubuntu_small' --disable term"
+  _neofetch_pipe() {
+    sed '/OS/ s/$/[WSL 2]/'
+  }
+else
+  # For any other system, don't do anything to the output
+  _neofetch_pipe() {
+    cat
+  }
+fi
 
-# Create a neofetch alias with the config
-alias neofetch="neofetch $neofetch_config"
+# Create a custom neofetch function with the config
+custom_neofetch() {
+  echo ""$neofetch_params" "$@"" | xargs neofetch | _neofetch_pipe
+}
 
 # autostart programs that output to console
 _autostart_prompt() {
-  neofetch
+  custom_neofetch
 }
 
 # autostart programs that don't output anything to console
