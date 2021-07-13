@@ -55,7 +55,7 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 bindkey '^ ' autosuggest-accept
 
 # Load aliases and shortcuts if existent.
-[ -f "$HOME/zsh/aliasrc" ] && source "$HOME/zsh/aliasrc"
+[ ! -f "$HOME/zsh/aliasrc" ] || source "$HOME/zsh/aliasrc"
 
 # Load autosuggestions, syntax highlighting, and autojump
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
@@ -69,3 +69,8 @@ source /usr/share/autojump/autojump.zsh 2>/dev/null
 if [ -f ~/.shared_autostart ]; then
     . ~/.shared_autostart --no-output
 fi
+
+# Source zsh-nvm plugin (if it exists)
+# (https://github.com/lukechilds/zsh-nvm)
+
+[ ! -f "$HOME/.zsh-nvm/zsh-nvm.plugin.zsh" ] || source "$HOME/.zsh-nvm/zsh-nvm.plugin.zsh"

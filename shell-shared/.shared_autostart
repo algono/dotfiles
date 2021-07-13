@@ -1,31 +1,29 @@
 #!/bin/sh
 
-# neofetch with 'WSL 2' added to it
-alias neofetch="neofetch | sed '/OS/ s/$/[WSL 2]/'"
+# Global neofetch config as parameters
+neofetch_config="--disable packages cpu gpu"
+
+# If we are in a WSL based system, add 'WSL 2' to neofetch's OS label
+type wslpath >/dev/null 2>&1 && neofetch_config="$neofetch_config --ascii_distro 'ubuntu_small' --disable term | sed '/OS/ s/$/[WSL 2]/'"
+
+# Create a neofetch alias with the config
+alias neofetch="neofetch $neofetch_config"
 
 # autostart programs that output to console
 _autostart_prompt() {
   neofetch
-
-  # Source zsh-nvm plugin (if it exists)
-  # (https://github.com/lukechilds/zsh-nvm)
-  if [ -f "$HOME/.zsh-nvm/zsh-nvm.plugin.zsh" ]
-  then  
-    # The autoload command only exists in zsh, and the nvm plugin uses it
-    # So, if it doesn't exist, just create an empty function so it doesn't show an error message (it should still work, at least in bash)
-    if ! command -v autoload >/dev/null; then autoload() { :; }; fi
-    
-    source "$HOME/.zsh-nvm/zsh-nvm.plugin.zsh"
-  fi
 }
 
-# autostart programs that don't output nothing to console
+# autostart programs that don't output anything to console
 _autostart_no_prompt() {
   # Add local binaries to PATH
-  [ -d "$HOME/.local/bin" ] && PATH=$PATH:"$HOME/.local/bin"
+  [ ! -d "$HOME/.local/bin" ] || PATH=$PATH:"$HOME/.local/bin"
 
   # Add cargo binaries to PATH
-  [ -d "$HOME/.cargo/bin" ] && PATH=$PATH:"$HOME/.cargo/bin"
+  [ ! -d "$HOME/.cargo/bin" ] || PATH=$PATH:"$HOME/.cargo/bin"
+
+  # Load nvm environment variables
+  export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 }
 
 ([ "$1" = "--with-output" ] || [ "$1" = "--all" ]) && _autostart_prompt

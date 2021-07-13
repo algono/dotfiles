@@ -135,3 +135,6 @@ source /usr/share/autojump/autojump.bash 2>/dev/null
 if [ -f ~/.shared_autostart ]; then
     . ~/.shared_autostart --all
 fi
+
+# Load nvm
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm

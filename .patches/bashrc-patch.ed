@@ -34,6 +34,9 @@ source /usr/share/autojump/autojump.bash 2>/dev/null
 if [ -f ~/.shared_autostart ]; then
     . ~/.shared_autostart --all
 fi
+
+# Load nvm
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 .
 w
 # If the ls alias is not present in the file, add it to the end
@@ -43,4 +46,5 @@ w
 # Change ls alias to use exa
 ,s/alias ls=.*$/alias ls='exa --color=always --group-directories-first'/
 # Save changes and quit
-wq
+w
+q
