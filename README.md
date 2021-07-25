@@ -1,53 +1,90 @@
 # Dotfiles
-My dotfiles, originally designed for **Ubuntu (WSL 2)**
+
+## Table of contents
+- [Dependencies](#dependencies)
+  - [System Packages](#system-packages)
+    - [Ubuntu](#ubuntu)
+    - [Arch](#arch)
+  - [Git Repositories](#git-repositories)
+  - [Other Packages](#other-packages)
+    - [Cargo](#cargo)
+    - [Go](#go)
+  - [Installation Script](#installation-script)
+    - [Ubuntu](#ubuntu-1)
+    - [Arch](#arch-1)
+  - [Change shell to ZSH (Optional)](#change-shell-to-zsh-optional)
+- [How to clone this repo](#how-to-clone-this-repo)
+  - [Packages needed](#packages-needed)
+    - [Ubuntu](#ubuntu-2)
+    - [Arch](#arch-2)
+  - [Script](#script)
+  - [Explanation](#explanation)
 
 ## Dependencies
-### Packages (apt)
-- autojump
+### System Packages
+#### Ubuntu
+- [autojump](https://github.com/wting/autojump)
 - neofetch
-#### ZSH only
 - zsh
 - zsh-syntax-highlighting
 - zsh-autosuggestions
-### Git repos
-#### ZSH only
-- [powerlevel10k](https://github.com/romkatv/powerlevel10k)
-### Other
-- exa (requires 'cargo' apt package)
-#### Bash only
-- powerline-go (requires 'golang-go' apt package)
+- cargo *(Ubuntu 20.04 or earlier)*
+- [exa](https://github.com/ogham/exa) *(Ubuntu 20.10 or later)*
+- golang-go
+
+#### Arch
+##### Pacman
+
+- [neofetch](https://archlinux.org/packages/?name=neofetch)
+- [exa](https://archlinux.org/packages/?name=exa)
+- [zsh](https://archlinux.org/packages/?name=zsh)
+- [zsh-syntax-highlighting](https://archlinux.org/packages/?name=zsh-syntax-highlighting)
+- [zsh-autosuggestions](https://archlinux.org/packages/?name=zsh-autosuggestions)
+- [zsh-theme-powerlevel10k](https://archlinux.org/packages/?name=zsh-theme-powerlevel10k)
+- [go](https://archlinux.org/packages/?name=go)
+
+##### AUR
+
+- [autojump-git](https://aur.archlinux.org/packages/autojump-git/)
+
+### Git repositories
+- *(Only needed for Ubuntu)* [powerlevel10k](https://github.com/romkatv/powerlevel10k)
+### Other Packages
+#### Cargo
+- [exa](https://github.com/ogham/exa) *(Ubuntu 20.04 or earlier)*
+#### Go
+- [powerline-go](https://github.com/justjanne/powerline-go)
 
 ### Installation script
-#### Everything
+#### Ubuntu
 ```shell
+# ---
+# Ubuntu 20.04 or earlier
 sudo apt install cargo
 cargo install exa
+
+# Ubuntu 20.10 or later
+sudo apt install exa
+# ---
+
 sudo apt install golang-go
 go get -v -u github.com/justjanne/powerline-go
-sudo apt install zsh zsh-syntax-highlighting zsh-autosuggestions autojump neofetch
+sudo apt install autojump neofetch zsh zsh-syntax-highlighting zsh-autosuggestions 
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
 ```
-#### Bash only
+
+#### Arch
+*(this script uses `paru` to install AUR packages)*
 ```shell
-sudo apt install cargo
-cargo install exa
-sudo apt install golang-go
+sudo pacman -S neofetch exa zsh zsh-syntax-highlighting zsh-autosuggestions zsh-theme-powerlevel10k go
 go get -v -u github.com/justjanne/powerline-go
-sudo apt install autojump neofetch
-```
-#### ZSH only
-```shell
-sudo apt install cargo
-cargo install exa
-sudo apt install zsh zsh-syntax-highlighting zsh-autosuggestions autojump neofetch
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
+paru -S autojump-git
 ```
 
 ### Change shell to ZSH (optional)
 ```shell
-chsh $USER
+chsh $USER -s /bin/zsh
 ```
-Then type `/bin/zsh`
 
 ## How to clone this repo
 
@@ -59,7 +96,7 @@ sudo apt install stow ed
 ```
 #### Arch
 ```shell
-sudo pacman -S stow ed
+sudo pacman -S --needed stow ed
 ```
 
 ### Script
