@@ -1,5 +1,5 @@
 # Dotfiles
-My dotfiles for **Ubuntu (WSL 2)**
+My dotfiles, originally designed for **Ubuntu (WSL 2)**
 
 ## Dependencies
 ### Packages (apt)
@@ -23,7 +23,7 @@ My dotfiles for **Ubuntu (WSL 2)**
 sudo apt install cargo
 cargo install exa
 sudo apt install golang-go
-go get -u github.com/justjanne/powerline-go
+go get -v -u github.com/justjanne/powerline-go
 sudo apt install zsh zsh-syntax-highlighting zsh-autosuggestions autojump neofetch
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
 ```
@@ -32,7 +32,7 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
 sudo apt install cargo
 cargo install exa
 sudo apt install golang-go
-go get -u github.com/justjanne/powerline-go
+go get -v -u github.com/justjanne/powerline-go
 sudo apt install autojump neofetch
 ```
 #### ZSH only
@@ -53,8 +53,13 @@ Then type `/bin/zsh`
 
 ### Packages needed
 This method requires `stow` for creating symlinks and `ed` for custom `.bashrc` support.
+#### Ubuntu
 ```shell
 sudo apt install stow ed
+```
+#### Arch
+```shell
+sudo pacman -S stow ed
 ```
 
 ### Script
