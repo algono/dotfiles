@@ -49,7 +49,14 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 # Load powerline
-source ~/powerlevel10k/powerlevel10k.zsh-theme
+if [ -f /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme ]
+then
+  # If the Arch Linux package 'zsh-theme-powerlevel10k' is installed, source it
+  source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+else
+  # In any other case, assume that it is located in the home folder
+  source ~/powerlevel10k/powerlevel10k.zsh-theme
+fi
 
 # Custom ZSH Binds
 bindkey '^ ' autosuggest-accept
