@@ -46,9 +46,12 @@
 ##### AUR
 
 - [autojump-git](https://aur.archlinux.org/packages/autojump-git/)
+- [ttf-meslo-nerd-font-powerlevel10k](https://aur.archlinux.org/packages/ttf-meslo-nerd-font-powerlevel10k/)
 
 ### Git repositories
-- *(Only needed for Ubuntu)* [powerlevel10k](https://github.com/romkatv/powerlevel10k)
+*(These are **NOT** needed for **arch** users - There are already arch packages for them)*
+- [powerlevel10k](https://github.com/romkatv/powerlevel10k)
+- [MesloLGS NF](https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k) *(Powerlevel10k recommended font)*
 ### Other Packages
 #### Cargo
 - [exa](https://github.com/ogham/exa) *(Ubuntu 20.04 or earlier)*
@@ -73,12 +76,13 @@ sudo apt install autojump neofetch zsh zsh-syntax-highlighting zsh-autosuggestio
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
 ```
 
+For the `MesloLGS NF` font, it's probably better to just follow the instructions from the [powerlevel10k README](https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k).
 #### Arch
 *(this script uses `paru` to install AUR packages)*
 ```shell
 sudo pacman -S neofetch exa zsh zsh-syntax-highlighting zsh-autosuggestions zsh-theme-powerlevel10k go
 go get -v -u github.com/justjanne/powerline-go
-paru -S autojump-git
+paru -S autojump-git ttf-meslo-nerd-font-powerlevel10k
 ```
 
 ### Change shell to ZSH (optional)
