@@ -64,9 +64,19 @@ bindkey '^ ' autosuggest-accept
 # Load aliases and shortcuts if existent.
 [ ! -f "$HOME/zsh/aliasrc" ] || source "$HOME/zsh/aliasrc"
 
-# Load autosuggestions, syntax highlighting, and autojump
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+# Load zsh autosuggestions and syntax highlighting
+if [ -d /usr/share/zsh/plugins ]
+then
+  # Arch-based locations
+  source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
+  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+else
+  # Ubuntu-based locations
+  source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
+  source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+fi
+
+# Load autojump
 source /usr/share/autojump/autojump.zsh 2>/dev/null
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
