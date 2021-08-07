@@ -91,3 +91,12 @@ fi
 # (https://github.com/lukechilds/zsh-nvm)
 
 [ ! -f "$HOME/.zsh-nvm/zsh-nvm.plugin.zsh" ] || source "$HOME/.zsh-nvm/zsh-nvm.plugin.zsh"
+
+# home/end/del keybinds
+# urxvt
+bindkey "^[[7~" beginning-of-line
+bindkey "^[[8~" end-of-line
+bindkey "^[[3~" delete-char
+# alacritty
+bindkey "^[[H" beginning-of-line
+bindkey "^[[F" end-of-line
