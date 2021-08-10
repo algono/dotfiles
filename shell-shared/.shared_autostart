@@ -35,6 +35,9 @@ _autostart_no_prompt() {
   # Add cargo binaries to PATH
   [ ! -d "$HOME/.cargo/bin" ] || PATH=$PATH:"$HOME/.cargo/bin"
 
+  # Add ghcup binaries to PATH
+  [ ! -d "$HOME/.ghcup/bin" ] || PATH=$PATH:"$HOME/.ghcup/bin"
+
   # Load nvm environment variables
   export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 }
