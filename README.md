@@ -113,10 +113,7 @@ if [ -f ~/.bashrc ]; then mv -f ~/.bashrc ~/dotfiles/bash
 elif [ -f /etc/skel/.bashrc ]; then cp -f /etc/skel/.bashrc ~/dotfiles/bash
 fi
 
-if type ed >/dev/null 2>&1 && [ -n $custom_bashrc ]
-then
-  ed ~/dotfiles/bash/.bashrc < ~/dotfiles/.patches/bashrc-patch.ed
-fi
+ed ~/dotfiles/bash/.bashrc < ~/dotfiles/.patches/bashrc-patch.ed
 
 find ~/dotfiles/* -maxdepth 1 -name ".*" -o -type d -prune -printf "%f\n" | xargs /usr/bin/stow -d ~/dotfiles -t ~
 ```
@@ -131,12 +128,9 @@ if [ -f ~/.bashrc ]; then mv -f ~/.bashrc ~/dotfiles/bash
 elif [ -f /etc/skel/.bashrc ]; then cp -f /etc/skel/.bashrc ~/dotfiles/bash
 fi
 ```
-> If the *ed* command is available and a custom *.bashrc* was found (it probably was), use the *ed* command to apply the relevant changes to the custom *.bashrc* file (Note: You should backup `~/.bashrc` first if you have that file, as this method has not been extensively tested and it could break it)
+> Use the *ed* command to apply the relevant changes to the custom *.bashrc* file (Note: You should backup `~/.bashrc` first if you have that file, as this method has not been extensively tested and it could break it)
 ```shell
-if type ed >/dev/null 2>&1 && [ -n $custom_bashrc ]
-then
-  ed ~/dotfiles/bash/.bashrc < ~/dotfiles/.patches/bashrc.patch.ed
-fi
+ed ~/dotfiles/bash/.bashrc < ~/dotfiles/.patches/bashrc.patch.ed
 ```
 > Create symlinks for our dotfiles into the home directory
 > (this command matches all non-hidden directories inside the 'dotfiles' folder)
