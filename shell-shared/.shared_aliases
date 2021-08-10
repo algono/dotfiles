@@ -32,16 +32,19 @@ alias la='ls -al'
 alias l='la'
 alias ll='ls -l'
 
-# xdg-open directories in file explorer (for autojump)
-xdg-open ()
-{
-  if [ -d "$1" ]
-  then
-    explorer.exe "$(wslpath -w "$1")"
-  else
-    /usr/bin/xdg-open "$@"
-  fi
-}
+# (WSL) xdg-open directories in file explorer (for autojump)
+if type wslpath >/dev/null 2>&1
+then
+  xdg-open ()
+  {
+    if [ -d "$1" ]
+    then
+      explorer.exe "$(wslpath -w "$1")"
+    else
+      /usr/bin/xdg-open "$@"
+    fi
+  }
+fi
 
 dotfilesDir=~/dotfiles
 
