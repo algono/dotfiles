@@ -108,33 +108,3 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
-
-######################################################################
-###########################  CUSTOM  #################################
-######################################################################
-
-# some more ls aliases
-alias la='ls -al'
-alias l='la'
-alias ll='ls -l'
-
-# Powerline-Go prompt
-GOPATH=$HOME/go
-function _update_ps1() {
-    PS1="$($GOPATH/bin/powerline-go -error $? -hostname-only-if-ssh -newline -shell bash -jobs $(jobs -p | wc -l))"
-}
-if [ "$TERM" != "linux" ] && [ -f "$GOPATH/bin/powerline-go" ]; then
-    PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
-fi
-
-# Load autojump
-source /usr/share/autojump/autojump.bash 2>/dev/null
-
-# Shared autostart commands (with or without output)
-if [ -f ~/.shared_autostart ]; then
-    . ~/.shared_autostart --all
-fi
-
-# Load nvm
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
