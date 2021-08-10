@@ -1,5 +1,10 @@
 #!/bin/sh
 
+exists ()
+{
+  type "$1" >/dev/null 2>&1
+}
+
 #
 # # ex - archive extractor
 # # usage: ex <file>
@@ -33,7 +38,7 @@ alias l='la'
 alias ll='ls -l'
 
 # (WSL) xdg-open directories in file explorer (for autojump)
-if type wslpath >/dev/null 2>&1
+if exists wslpath
 then
   xdg-open ()
   {
@@ -77,14 +82,14 @@ alias yta='youtube-dl -x --audio-format mp3'
 alias ytv='youtube-dl -f mp4'
 
 # package manager aliases
-if type pacman >/dev/null 2>&1
+if exists pacman
 then
   alias update='sudo pacman -Syu'
  
-  if type paru >/dev/null 2>&1
+  if exists paru
   then
     aur_helper='paru'
-  elif type yay >/dev/null 2>&1
+  elif exists yay
   then
     aur_helper='yay'
   fi
@@ -93,7 +98,7 @@ then
   then
     alias upall="$aur_helper -Syu"
   fi
-elif type apt >/dev/null 2>&1
+elif exists apt
 then
   alias update='sudo apt update && sudo apt upgrade'
   alias upall='sudo apt update && sudo apt full-upgrade'
