@@ -75,3 +75,34 @@ alias dtf='dotfiles'
 # youtube-dl aliases
 alias yta='youtube-dl -x --audio-format mp3'
 alias ytv='youtube-dl -f mp4'
+
+# package manager aliases
+if type pacman >/dev/null 2>&1
+then
+  alias update='sudo pacman -Syu'
+ 
+  if type paru >/dev/null 2>&1
+  then
+    aur_helper='paru'
+  elif type yay >/dev/null 2>&1
+  then
+    aur_helper='yay'
+  fi
+
+  if [ -n "$aur_helper" ]
+  then
+    alias upall="$aur_helper -Syu"
+  fi
+elif type apt >/dev/null 2>&1
+then
+  alias update='sudo apt update && sudo apt upgrade'
+  alias upall='sudo apt update && sudo apt full-upgrade'
+fi
+
+# backup related aliases
+# (source: https://arcolinux.com/superfast-update-of-arcolinux/)
+if [ -d "/etc/skel" ]
+then
+  alias skel='cp -Rf ~/.config ~/.config-backup-$(date +%Y.%m.%d-%H.%M.%S) && cp -rf /etc/skel/* ~'
+  alias cb='sudo cp /etc/skel/.bashrc ~/.bashrc && source ~/.bashrc'
+fi
