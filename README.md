@@ -122,10 +122,13 @@ find ~/dotfiles/* -maxdepth 1 -name ".*" -o -type d -prune -printf "%f\n" | xarg
 ```shell
 git clone https://github.com/algono/dotfiles ~/dotfiles
 ```
-> If there is a custom *.bashrc* (either in the user's personal folder or in the system's *skel* folder), use it as a base instead of the fallback one from the dotfiles
+> If there is a custom *.bashrc* (either in the user's personal folder or in the system's *skel* folder), use it as a base.
+> As a fallback, if the system is detected as manjaro, use the default manjaro *.bashrc*, and if it wasn't use the default WSL one
 ```shell
 if [ -f ~/.bashrc ]; then mv -f ~/.bashrc ~/dotfiles/bash 
 elif [ -f /etc/skel/.bashrc ]; then cp -f /etc/skel/.bashrc ~/dotfiles/bash
+elif uname -r | grep -iq manjaro; then cp ~/dotfiles/bash/.bashrc-manjaro ~/dotfiles/bash/.bashrc
+else cp ~/dotfiles/bash/.bashrc-wsl ~/dotfiles/bash/.bashrc
 fi
 ```
 > Use the *ed* command to apply the relevant changes to the custom *.bashrc* file (Note: You should backup `~/.bashrc` first if you have that file, as this method has not been extensively tested and it could break it)
