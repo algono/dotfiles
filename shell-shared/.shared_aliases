@@ -1,5 +1,8 @@
 #!/bin/sh
 
+EDITOR=vim
+export EDITOR
+
 exists ()
 {
   type "$1" >/dev/null 2>&1
