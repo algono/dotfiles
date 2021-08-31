@@ -109,8 +109,10 @@ sudo pacman -S --needed stow ed
 ```shell
 git clone https://github.com/algono/dotfiles ~/dotfiles
 
-if [ -f ~/.bashrc ]; then mv -f ~/.bashrc ~/dotfiles/bash 
+if [ -f ~/.bashrc ]; then mv -f ~/.bashrc ~/dotfiles/bash
 elif [ -f /etc/skel/.bashrc ]; then cp -f /etc/skel/.bashrc ~/dotfiles/bash
+elif uname -r | grep -iq manjaro; then cp ~/dotfiles/bash/.bashrc-manjaro ~/dotfiles/bash/.bashrc
+else cp ~/dotfiles/bash/.bashrc-wsl ~/dotfiles/bash/.bashrc
 fi
 
 ed ~/dotfiles/bash/.bashrc < ~/dotfiles/.patches/bashrc-patch.ed
