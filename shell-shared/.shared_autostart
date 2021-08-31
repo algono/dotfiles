@@ -1,12 +1,12 @@
 #!/bin/sh
 
 # Global neofetch config as parameters
-neofetch_params="--disable packages cpu gpu"
+neofetch_params="--disable packages cpu gpu --disable de"
 
 # If we are in a WSL based system, add 'WSL 2' to neofetch's OS label
 if type wslpath >/dev/null 2>&1
 then
-  neofetch_params="$neofetch_params --ascii_distro 'ubuntu_small' --disable term"
+  neofetch_params="$neofetch_params --ascii_distro 'ubuntu_small' --disable term --disable de"
   _neofetch_pipe() {
     sed '/OS/ s/$/[WSL 2]/'
   }
@@ -36,8 +36,8 @@ _autostart_no_prompt() {
   [ ! -d "$HOME/.cargo/bin" ] || PATH=$PATH:"$HOME/.cargo/bin"
 
   # Add ghcup binaries to PATH
-  [ ! -d "$HOME/.ghcup/bin" ] || PATH=$PATH:"$HOME/.ghcup/bin"
-  
+  [ ! -d "$HOME/.ghcup/bin" ] || PATH="$HOME/.ghcup/bin":$PATH
+
   # Add cabal binaries to PATH
   [ ! -d "$HOME/.cabal/bin" ] || PATH=$PATH:"$HOME/.cabal/bin"
 
