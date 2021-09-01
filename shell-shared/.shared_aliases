@@ -114,3 +114,9 @@ then
   alias skel='cp -Rf ~/.config ~/.config-backup-$(date +%Y.%m.%d-%H.%M.%S) && cp -rf /etc/skel/* ~'
   alias cb='sudo cp /etc/skel/.bashrc ~/.bashrc && source ~/.bashrc'
 fi
+
+# Alias for the bat program (a cat replacement) for Debian-based distros.
+if exists batcat
+then
+  alias bat='batcat'
+fi
