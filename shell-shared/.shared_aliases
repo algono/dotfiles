@@ -120,3 +120,26 @@ if exists batcat
 then
   alias bat='batcat'
 fi
+
+# git aliases
+alias ga='git add'
+alias gap='git add -p'
+alias gai='git add -i'
+alias gcm='git commit -m'
+alias gp='git push'
+alias gpl='git pull'
+alias gst='git status'
+alias gd='git diff'
+alias gds='git diff --staged'
+alias gdh='git diff HEAD~1'
+alias grh='git reset --hard'
+alias grhh='git reset --hard HEAD~1'
+alias grs='git reset --soft'
+alias grsh='git reset --soft HEAD~1'
+alias gsh='git stash'
+alias gshu='git stash --include-untracked'
+alias gshp='git stash pop'
+alias gsha='git stash apply'
+alias gshd='git stash drop'
+alias gshl='git stash list'
+alias gl='git log'
