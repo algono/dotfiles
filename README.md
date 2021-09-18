@@ -82,7 +82,16 @@ For the `MesloLGS NF` font, it's probably better to just follow the instructions
 #### Arch
 *(this script uses `paru` to install AUR packages)*
 ```shell
-sudo pacman -S neofetch exa zsh zsh-syntax-highlighting zsh-autosuggestions zsh-theme-powerlevel10k go
+# ---
+# Manjaro
+sudo pacman -S powerline-go
+
+# Other Arch-based distro
+sudo pacman -S go
+go get -v -u github.com/justjanne/powerline-go
+# ---
+
+sudo pacman -S neofetch exa zsh zsh-syntax-highlighting zsh-autosuggestions zsh-theme-powerlevel10k
 go get -v -u github.com/justjanne/powerline-go
 paru -S autojump-git ttf-meslo-nerd-font-powerlevel10k
 ```
