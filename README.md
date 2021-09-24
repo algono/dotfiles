@@ -30,6 +30,7 @@
 - zsh-autosuggestions
 - cargo *(Ubuntu 20.04 or earlier)*
 - [exa](https://github.com/ogham/exa) *(Ubuntu 20.10 or later)*
+- [bat](https://github.com/sharkdp/bat)
 - golang-go
 
 #### Arch
@@ -37,6 +38,7 @@
 
 - [neofetch](https://archlinux.org/packages/?name=neofetch)
 - [exa](https://archlinux.org/packages/?name=exa)
+- [bat](https://github.com/sharkdp/bat)
 - [zsh](https://archlinux.org/packages/?name=zsh)
 - [zsh-syntax-highlighting](https://archlinux.org/packages/?name=zsh-syntax-highlighting)
 - [zsh-autosuggestions](https://archlinux.org/packages/?name=zsh-autosuggestions)
@@ -74,7 +76,7 @@ sudo apt install exa
 
 sudo apt install golang-go
 go get -v -u github.com/justjanne/powerline-go
-sudo apt install autojump neofetch zsh zsh-syntax-highlighting zsh-autosuggestions 
+sudo apt install autojump neofetch bat zsh zsh-syntax-highlighting zsh-autosuggestions 
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
 ```
 
@@ -91,7 +93,7 @@ sudo pacman -S go
 go get -v -u github.com/justjanne/powerline-go
 # ---
 
-sudo pacman -S neofetch exa zsh zsh-syntax-highlighting zsh-autosuggestions zsh-theme-powerlevel10k
+sudo pacman -S neofetch exa bat zsh zsh-syntax-highlighting zsh-autosuggestions zsh-theme-powerlevel10k
 paru -S autojump-git ttf-meslo-nerd-font-powerlevel10k
 ```
 
