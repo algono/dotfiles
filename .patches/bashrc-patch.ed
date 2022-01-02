@@ -28,8 +28,13 @@ if [ "$TERM" != "linux" ] && [ -f "$GOPATH/bin/powerline-go" ]; then
     PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
 fi
 
-# Load zoxide
-eval "$(zoxide init bash)"
+# Load zoxide if installed, else load autojump
+if exists zoxide
+then
+  eval "$(zoxide init bash)"
+else
+  source /usr/share/autojump/autojump.bash 2>/dev/null
+fi
 
 # Shared autostart commands (with or without output)
 if [ -f ~/.shared_autostart ]; then

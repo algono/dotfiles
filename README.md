@@ -23,13 +23,14 @@
 ## Dependencies
 ### System Packages
 #### Ubuntu
+- [autojump](https://github.com/wting/autojump) *(Ubuntu 20.10 or earlier)*
+- [zoxide](https://github.com/ajeetdsouza/zoxide) *(Ubuntu 21.04 or later)*
 - neofetch
 - zsh
 - zsh-syntax-highlighting
 - zsh-autosuggestions
-- cargo *(Ubuntu 20.10 or earlier)*
+- cargo *(Ubuntu 20.04 or earlier)*
 - [exa](https://github.com/ogham/exa) *(Ubuntu 20.10 or later)*
-- [zoxide](https://github.com/ajeetdsouza/zoxide) *(Ubuntu 21.04 or later)*
 - [bat](https://github.com/sharkdp/bat)
 - golang-go
 
@@ -58,7 +59,6 @@
 ### Other Packages
 #### Cargo
 - [exa](https://github.com/ogham/exa) *(Ubuntu 20.04 or earlier)*
-- [zoxide](https://github.com/ajeetdsouza/zoxide) *(Ubuntu 20.10 or earlier)*
 #### Go
 *(Only needed for **non-Manjaro** users. For **Manjaro** users, check the [pacman packages](#pacman) section.)*
 - [powerline-go](https://github.com/justjanne/powerline-go)
@@ -67,15 +67,18 @@
 #### Ubuntu
 ```shell
 # ---
-# Ubuntu 20.10 or earlier
-sudo apt install cargo
-cargo install zoxide --locked
-# ---
 # Ubuntu 20.04 or earlier
+sudo apt install cargo
 cargo install exa
-# ---
+
 # Ubuntu 20.10 or later
 sudo apt install exa
+# ---
+
+# ---
+# Ubuntu 20.10 or earlier
+sudo apt install autojump
+
 # Ubuntu 21.04 or later
 sudo apt install zoxide
 # ---

@@ -144,5 +144,8 @@ alias gshd='git stash drop'
 alias gshl='git stash list'
 alias gl='git log'
 
-# alias for autojump command to redirect to newer alternative called zoxide
-alias j='z'
+# Alias for autojump alternative (zoxide) for Arch-based distros.
+if exists z
+then
+  alias j='z'
+fi
