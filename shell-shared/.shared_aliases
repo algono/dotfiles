@@ -145,7 +145,7 @@ alias gshl='git stash list'
 alias gl='git log'
 
 # Alias for autojump alternative (zoxide) if it is being used instead of autojump
-if exists z
+if exists zoxide
 then
   alias j='z'
 fi
