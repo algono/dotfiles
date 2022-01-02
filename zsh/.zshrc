@@ -76,8 +76,8 @@ else
   source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 fi
 
-# Load autojump
-source /usr/share/autojump/autojump.zsh 2>/dev/null
+# Load zoxide
+eval "$(zoxide init zsh)"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

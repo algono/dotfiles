@@ -143,3 +143,6 @@ alias gsha='git stash apply'
 alias gshd='git stash drop'
 alias gshl='git stash list'
 alias gl='git log'
+
+# alias for autojump command to redirect to newer alternative called zoxide
+alias j='z'

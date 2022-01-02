@@ -28,8 +28,8 @@ if [ "$TERM" != "linux" ] && [ -f "$GOPATH/bin/powerline-go" ]; then
     PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
 fi
 
-# Load autojump
-source /usr/share/autojump/autojump.bash 2>/dev/null
+# Load zoxide
+eval "$(zoxide init bash)"
 
 # Shared autostart commands (with or without output)
 if [ -f ~/.shared_autostart ]; then

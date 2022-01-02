@@ -23,13 +23,13 @@
 ## Dependencies
 ### System Packages
 #### Ubuntu
-- [autojump](https://github.com/wting/autojump)
 - neofetch
 - zsh
 - zsh-syntax-highlighting
 - zsh-autosuggestions
-- cargo *(Ubuntu 20.04 or earlier)*
+- cargo *(Ubuntu 20.10 or earlier)*
 - [exa](https://github.com/ogham/exa) *(Ubuntu 20.10 or later)*
+- [zoxide](https://github.com/ajeetdsouza/zoxide) *(Ubuntu 21.04 or later)*
 - [bat](https://github.com/sharkdp/bat)
 - golang-go
 
@@ -43,12 +43,12 @@
 - [zsh-syntax-highlighting](https://archlinux.org/packages/?name=zsh-syntax-highlighting)
 - [zsh-autosuggestions](https://archlinux.org/packages/?name=zsh-autosuggestions)
 - [zsh-theme-powerlevel10k](https://archlinux.org/packages/?name=zsh-theme-powerlevel10k)
+- [zoxide](https://archlinux.org/packages/community/x86_64/zoxide)
 - powerline-go *(Only for **Manjaro** users)*
 - [go](https://archlinux.org/packages/?name=go) *(Only needed for **non-Manjaro** users)*
 
 ##### AUR
 
-- [autojump-git](https://aur.archlinux.org/packages/autojump-git/)
 - [ttf-meslo-nerd-font-powerlevel10k](https://aur.archlinux.org/packages/ttf-meslo-nerd-font-powerlevel10k/)
 
 ### Git repositories
@@ -58,6 +58,7 @@
 ### Other Packages
 #### Cargo
 - [exa](https://github.com/ogham/exa) *(Ubuntu 20.04 or earlier)*
+- [zoxide](https://github.com/ajeetdsouza/zoxide) *(Ubuntu 20.10 or earlier)*
 #### Go
 *(Only needed for **non-Manjaro** users. For **Manjaro** users, check the [pacman packages](#pacman) section.)*
 - [powerline-go](https://github.com/justjanne/powerline-go)
@@ -66,17 +67,22 @@
 #### Ubuntu
 ```shell
 # ---
-# Ubuntu 20.04 or earlier
+# Ubuntu 20.10 or earlier
 sudo apt install cargo
+cargo install zoxide --locked
+# ---
+# Ubuntu 20.04 or earlier
 cargo install exa
-
+# ---
 # Ubuntu 20.10 or later
 sudo apt install exa
+# Ubuntu 21.04 or later
+sudo apt install zoxide
 # ---
 
 sudo apt install golang-go
 go get -v -u github.com/justjanne/powerline-go
-sudo apt install autojump neofetch bat zsh zsh-syntax-highlighting zsh-autosuggestions 
+sudo apt install neofetch bat zsh zsh-syntax-highlighting zsh-autosuggestions 
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
 ```
 
@@ -93,8 +99,8 @@ sudo pacman -S go
 go get -v -u github.com/justjanne/powerline-go
 # ---
 
-sudo pacman -S neofetch exa bat zsh zsh-syntax-highlighting zsh-autosuggestions zsh-theme-powerlevel10k
-paru -S autojump-git ttf-meslo-nerd-font-powerlevel10k
+sudo pacman -S zoxide neofetch exa bat zsh zsh-syntax-highlighting zsh-autosuggestions zsh-theme-powerlevel10k
+paru -S ttf-meslo-nerd-font-powerlevel10k
 ```
 
 ### Change shell to ZSH (optional)
