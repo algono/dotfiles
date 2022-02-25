@@ -8,6 +8,8 @@ elif uname -r | grep -iq manjaro; then cp ~/dotfiles/bash/.bashrc-manjaro ~/dotf
 else cp ~/dotfiles/bash/.bashrc-wsl ~/dotfiles/bash/.bashrc
 fi
 
+[ -f ~/.zshrc ] && rm ~/.zshrc
+
 ed ~/dotfiles/bash/.bashrc < ~/dotfiles/.patches/bashrc-patch.ed
 
 grep -qF ". ~/.bash_aliases" ~/dotfiles/bash/.bashrc || (echo -e '\n[ -f ~/.bash_aliases ] && . ~/.bash_aliases\n' >> ~/dotfiles/bash/.bashrc)

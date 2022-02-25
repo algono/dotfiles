@@ -146,6 +146,8 @@ elif uname -r | grep -iq manjaro; then cp ~/dotfiles/bash/.bashrc-manjaro ~/dotf
 else cp ~/dotfiles/bash/.bashrc-wsl ~/dotfiles/bash/.bashrc
 fi
 
+[ -f ~/.zshrc ] && rm ~/.zshrc
+
 ed ~/dotfiles/bash/.bashrc < ~/dotfiles/.patches/bashrc-patch.ed
 
 grep -qF ". ~/.bash_aliases" ~/dotfiles/bash/.bashrc || (echo -e '\n[ -f ~/.bash_aliases ] && . ~/.bash_aliases\n' >> ~/dotfiles/bash/.bashrc)
@@ -165,6 +167,11 @@ elif [ -f /etc/skel/.bashrc ]; then cp -f /etc/skel/.bashrc ~/dotfiles/bash
 elif uname -r | grep -iq manjaro; then cp ~/dotfiles/bash/.bashrc-manjaro ~/dotfiles/bash/.bashrc
 else cp ~/dotfiles/bash/.bashrc-wsl ~/dotfiles/bash/.bashrc
 fi
+```
+> If there is a *.zshrc* file in the home folder, remove it
+> (stow would fail if it finds a file there)
+```shell
+[ -f ~/.zshrc ] && rm ~/.zshrc
 ```
 > Use the *ed* command to apply the relevant changes to the custom *.bashrc* file (Note: You should backup `~/.bashrc` first if you have that file, as this method has not been extensively tested and it could break it)
 ```shell
