@@ -14,7 +14,7 @@ sudo pacman -Sy && \
 
 # If powerline-go (prompt for bash) is available through pacman,
 # install it that way.
-if (pacman -Q powerline-go >/dev/null 2>&1)
+if (pacman -Ssq ^powerline-go$ >/dev/null 2>&1)
 then
   sudo pacman -S --noconfirm --needed powerline-go
 else
