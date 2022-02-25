@@ -65,6 +65,9 @@
 
 ### Installation script
 #### Ubuntu
+##### Automatic
+[Script](deps-ubuntu.sh)
+##### Manual
 ```shell
 # ---
 # Ubuntu 20.04 or earlier
@@ -91,7 +94,11 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
 
 For the `MesloLGS NF` font, it's probably better to just follow the instructions from the [powerlevel10k README](https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k).
 #### Arch
-*(this script uses `paru` to install AUR packages)*
+
+##### Automatic
+[Script](deps-arch.sh)
+##### Manual
+*(these commands use `paru` to install AUR packages)*
 ```shell
 # ---
 # Manjaro
@@ -115,6 +122,8 @@ chsh $USER -s /bin/zsh
 
 ### Packages needed
 This method requires `stow` for creating symlinks and `ed` for custom `.bashrc` support.
+
+> **Note**: The **automatic** scripts for installing dependencies also install these packages.
 #### Ubuntu
 ```shell
 sudo apt install stow ed
@@ -125,6 +134,9 @@ sudo pacman -S --needed stow ed
 ```
 
 ### Script
+#### Automatic
+[Script](setup.sh)
+#### Manual
 ```shell
 git clone https://github.com/algono/dotfiles ~/dotfiles
 
