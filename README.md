@@ -136,6 +136,8 @@ fi
 
 ed ~/dotfiles/bash/.bashrc < ~/dotfiles/.patches/bashrc-patch.ed
 
+grep -qF ". ~/.bash_aliases" ~/dotfiles/bash/.bashrc || (echo -e '\n[ -f ~/.bash_aliases ] && . ~/.bash_aliases\n' >> ~/dotfiles/bash/.bashrc)
+
 find ~/dotfiles/* -maxdepth 1 -name ".*" -o -type d -prune -printf "%f\n" | xargs /usr/bin/stow -d ~/dotfiles -t ~
 ```
 ### Explanation
@@ -155,6 +157,12 @@ fi
 > Use the *ed* command to apply the relevant changes to the custom *.bashrc* file (Note: You should backup `~/.bashrc` first if you have that file, as this method has not been extensively tested and it could break it)
 ```shell
 ed ~/dotfiles/bash/.bashrc < ~/dotfiles/.patches/bashrc.patch.ed
+```
+> Checks if `.bash_aliases` is properly sourced inside `.bashrc`
+> (for instance, WSL does it by default, but Manjaro doesn't).
+> If it is not sourced, adds a line to source it at the end of the file
+```shell
+grep -qF ". ~/.bash_aliases" ~/dotfiles/bash/.bashrc || (echo -e '\n[ -f ~/.bash_aliases ] && . ~/.bash_aliases\n' >> ~/dotfiles/bash/.bashrc)
 ```
 > Create symlinks for our dotfiles into the home directory
 > (this command matches all non-hidden directories inside the 'dotfiles' folder)
