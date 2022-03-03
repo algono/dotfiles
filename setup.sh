@@ -10,8 +10,8 @@ fi
 
 [ -f ~/.zshrc ] && rm ~/.zshrc
 
-ed ~/dotfiles/bash/.bashrc < ~/dotfiles/.patches/bashrc-patch.ed
-
 grep -qF ". ~/.bash_aliases" ~/dotfiles/bash/.bashrc || (echo -e '\n[ -f ~/.bash_aliases ] && . ~/.bash_aliases\n' >> ~/dotfiles/bash/.bashrc)
+
+ed ~/dotfiles/bash/.bashrc < ~/dotfiles/.patches/bashrc-patch.ed
 
 find ~/dotfiles/* -maxdepth 1 -name ".*" -o -type d -prune -printf "%f\n" | xargs /usr/bin/stow -d ~/dotfiles -t ~
