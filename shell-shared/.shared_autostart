@@ -1,12 +1,12 @@
 #!/bin/sh
 
 # Global neofetch config as parameters
-neofetch_params="--disable packages cpu gpu --disable de"
+neofetch_params="--disable packages cpu gpu de"
 
 # If we are in a WSL based system, add 'WSL 2' to neofetch's OS label
 if type wslpath >/dev/null 2>&1
 then
-  neofetch_params="$neofetch_params --ascii_distro 'ubuntu_small' --disable term --disable de"
+  neofetch_params="$neofetch_params --ascii_distro 'ubuntu_small' --disable term theme icons"
   _neofetch_pipe() {
     sed '/OS/ s/$/[WSL 2]/'
   }
