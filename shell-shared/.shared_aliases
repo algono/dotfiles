@@ -145,6 +145,9 @@ alias gshd='git stash drop'
 alias gshl='git stash list'
 alias gl='git log'
 
+# gh aliases (github-cli)
+alias gv='gh repo view -w'
+
 # Alias for autojump alternative (zoxide) if it is being used instead of autojump
 if exists zoxide
 then
