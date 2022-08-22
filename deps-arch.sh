@@ -20,7 +20,7 @@ then
 else
   # If not, install it through go
   sudo pacman -S --noconfirm --needed go \
-  && go get -v -u github.com/justjanne/powerline-go
+  && go install github.com/justjanne/powerline-go@latest
 fi
 
 # This helper function tries to use paru as AUR helper.

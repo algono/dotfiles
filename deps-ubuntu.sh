@@ -10,7 +10,7 @@ sudo apt-get update && \
     stow ed
 
 # Install powerline-go (prompt for bash)
-go get -v -u github.com/justjanne/powerline-go
+go install github.com/justjanne/powerline-go@latest
 
 # Install powerlevel10k (prompt for zsh)
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k

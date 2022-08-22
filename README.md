@@ -87,7 +87,7 @@ sudo apt install zoxide
 # ---
 
 sudo apt install golang-go
-go get -v -u github.com/justjanne/powerline-go
+go install github.com/justjanne/powerline-go@latest
 sudo apt install neofetch bat zsh zsh-syntax-highlighting zsh-autosuggestions 
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
 ```
@@ -106,7 +106,7 @@ sudo pacman -S powerline-go
 
 # Other Arch-based distro
 sudo pacman -S go
-go get -v -u github.com/justjanne/powerline-go
+go install github.com/justjanne/powerline-go@latest
 # ---
 
 sudo pacman -S zoxide neofetch exa bat zsh zsh-syntax-highlighting zsh-autosuggestions zsh-theme-powerlevel10k
