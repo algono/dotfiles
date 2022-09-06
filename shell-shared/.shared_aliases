@@ -153,3 +153,9 @@ if exists zoxide
 then
   alias j='z'
 fi
+
+# Alias for neovim (nvim) if it is being used instead of vim
+if exists nvim
+then
+  alias vim='nvim'
+fi
