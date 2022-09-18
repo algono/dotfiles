@@ -144,6 +144,7 @@ alias gsha='git stash apply'
 alias gshd='git stash drop'
 alias gshl='git stash list'
 alias gl='git log'
+alias gsw='git switch'
 
 # gh aliases (github-cli)
 alias gv='gh repo view -w'
