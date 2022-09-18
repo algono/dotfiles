@@ -149,6 +149,11 @@ alias gsw='git switch'
 # gh aliases (github-cli)
 alias gv='gh repo view -w'
 
+# Docker compose aliases
+alias dcu='docker compose up'
+alias dcd='docker compose down'
+alias dcbld='docker compose build'
+
 # Alias for autojump alternative (zoxide) if it is being used instead of autojump
 if exists zoxide
 then
