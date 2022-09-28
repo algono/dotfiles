@@ -178,3 +178,8 @@ if exists nvim
 then
   alias vim='nvim'
 fi
+
+if [ -f /usr/bin/chromium ]
+then
+  export CHROME_EXECUTABLE="/usr/bin/chromium"
+fi
