@@ -168,6 +168,7 @@ alias dcda='docker compose down -v --rmi=local'
 alias dcdaf='docker compose down -v --rmi=all'
 alias dcbld='docker compose build'
 alias dcr='docker compose run'
+alias dce='docker compose exec'
 
 # Alias for autojump alternative (zoxide) if it is being used instead of autojump
 if exists zoxide
