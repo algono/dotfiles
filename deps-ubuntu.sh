@@ -4,13 +4,9 @@
 sudo apt-get update && \
   sudo apt-get -y install --no-install-recommends \
     bat \
-    golang-go \
     neofetch \
     zsh zsh-syntax-highlighting zsh-autosuggestions \
     stow ed
-
-# Install powerline-go (prompt for bash)
-go install github.com/justjanne/powerline-go@latest
 
 # Install powerlevel10k (prompt for zsh)
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
