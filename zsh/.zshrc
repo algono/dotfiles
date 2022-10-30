@@ -90,11 +90,11 @@ fi
 # Shared autostart commands (no output)
 # (unless the AUTOSTART_FINISHED flag is set, in which case autostart was already called)
 # (in most cases, it should already have been called by the aliasrc file)
-if [ -z "$AUTOSTART_FINISHED" ] && [ -f ~/.shared_autostart ]
+if [ -z "$_AUTOSTART_FINISHED" ] && [ -f ~/.shared_autostart ]
 then
   . ~/.shared_autostart --no-output
 fi
-unset AUTOSTART_FINISHED
+unset _AUTOSTART_FINISHED
 
 # Source zsh-nvm plugin (if it exists)
 # (https://github.com/lukechilds/zsh-nvm)

@@ -47,7 +47,7 @@ _autostart_no_prompt() {
   # Load nix profile (if available)
   if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then . "$HOME/.nix-profile/etc/profile.d/nix.sh"; fi
 
-  export AUTOSTART_FINISHED=1
+  export _AUTOSTART_FINISHED=1
 }
 
 ([ "$1" = "--with-output" ] || [ "$1" = "--all" ]) && _autostart_prompt
