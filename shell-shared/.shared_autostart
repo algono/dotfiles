@@ -43,6 +43,9 @@ _autostart_no_prompt() {
 
   # Load nvm environment variables
   export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+
+  # Load nix profile (if available)
+  if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then . "$HOME/.nix-profile/etc/profile.d/nix.sh"; fi
 }
 
 ([ "$1" = "--with-output" ] || [ "$1" = "--all" ]) && _autostart_prompt
