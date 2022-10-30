@@ -69,6 +69,30 @@ dotfiles ()
         shift
         packages=("$(find $dotfilesDir/* -maxdepth 1 -name ".*" -o -type d -prune -printf "%f\n")")
         ;;
+      -r|--rebuild)
+        shift
+        packages=("$(find $dotfilesDir/* -maxdepth 1 -name ".*" -o -type d -prune -printf "%f\n")")
+        if [ -f /etc/skel/.bashrc ]
+        then
+          cp -f ~/dotfiles/bash/.bashrc ~/.bashrc.bak
+          rm -f ~/.bashrc
+          cp -f /etc/skel/.bashrc ~/dotfiles/bash/.bashrc
+          ed ~/dotfiles/bash/.bashrc < ~/dotfiles/.patches/bashrc-patch.ed
+          tput setaf 10;
+          echo "################################################################"
+          echo "~/.bashrc was successfully rebuilt."
+          echo "A backup of the original was saved in ~/.bashrc.bak"
+          echo "################################################################"
+          echo;tput sgr0
+        else
+          tput setaf 11;
+          echo "################################################################"
+          echo "WARNING: ~/.bashrc could not be rebuilt."
+          echo "################################################################"
+          echo;tput sgr0
+        fi
+        args+="-R"
+        ;;
       *)
         args+="$1"
         shift
