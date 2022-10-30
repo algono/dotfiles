@@ -81,8 +81,11 @@ dotfiles ()
 alias dtf='dotfiles'
 
 # youtube-dl aliases
-alias yta='youtube-dl -x --audio-format mp3'
-alias ytv='youtube-dl -f mp4'
+if exists youtube-dl
+then
+  alias yta='youtube-dl -x --audio-format mp3'
+  alias ytv='youtube-dl -f mp4'
+fi
 
 # package manager aliases
 if exists pacman
