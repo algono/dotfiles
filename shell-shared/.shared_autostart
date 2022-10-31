@@ -47,6 +47,9 @@ _autostart_no_prompt() {
   # Load nix profile (if available)
   if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then . "$HOME/.nix-profile/etc/profile.d/nix.sh"; fi
 
+  # Load nix home manager session variables (if available)
+  if [ -e "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+
   export _AUTOSTART_FINISHED=1
 }
 
