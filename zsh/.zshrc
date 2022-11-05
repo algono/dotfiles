@@ -1,7 +1,5 @@
-# Shared autostart commands (with output)
-if [ -f ~/.shared_autostart ]; then
-    . ~/.shared_autostart --with-output
-fi
+# Show neofetch
+neofetch
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -18,7 +16,7 @@ prompt adam1
 
 setopt histignorealldups sharehistory
 
-# Custom variables 
+# Custom variables
 EDITOR=vim
 
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
@@ -86,15 +84,6 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# Shared autostart commands (no output)
-# (unless the AUTOSTART_FINISHED flag is set, in which case autostart was already called)
-# (in most cases, it should already have been called by the aliasrc file)
-if [ -z "$_AUTOSTART_FINISHED" ] && [ -f ~/.shared_autostart ]
-then
-  . ~/.shared_autostart --no-output
-fi
-unset _AUTOSTART_FINISHED
 
 # Source zsh-nvm plugin (if it exists)
 # (https://github.com/lukechilds/zsh-nvm)

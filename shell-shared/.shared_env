@@ -1,0 +1,22 @@
+#!/bin/sh
+
+# Add local binaries to PATH
+[ ! -d "$HOME/.local/bin" ] || PATH=$PATH:"$HOME/.local/bin"
+
+# Add cargo binaries to PATH
+[ ! -d "$HOME/.cargo/bin" ] || PATH=$PATH:"$HOME/.cargo/bin"
+
+# Add ghcup binaries to PATH
+[ ! -d "$HOME/.ghcup/bin" ] || PATH="$HOME/.ghcup/bin":$PATH
+
+# Add cabal binaries to PATH
+[ ! -d "$HOME/.cabal/bin" ] || PATH=$PATH:"$HOME/.cabal/bin"
+
+# Load nvm environment variables
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+
+# Load nix profile (if available)
+if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then . "$HOME/.nix-profile/etc/profile.d/nix.sh"; fi
+
+# Load nix home manager session variables (if available)
+if [ -e "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"; fi

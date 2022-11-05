@@ -1,3 +1,4 @@
+# Activate verbose mode
 H
 # Remove (l, la, ll) ls aliases (if any)
 g/alias l[al]\?=/d
@@ -5,12 +6,25 @@ g/alias l[al]\?=/d
 g/#.*ls aliases/d
 # Save changes
 w
+# Add env setup to the start of the file
+0a
+######################################################################
+################  Setup environment variables  #######################
+######################################################################
+
+[ ! -f ~/.shared_env ] || . ~/.shared_env
+
+######################################################################
+#####################  Default settings  #############################
+######################################################################
+.
+w
 # Add custom config to the end of the file
 $a
 
 
 ######################################################################
-###########################  CUSTOM  #################################
+#####################  Custom settings  ##############################
 ######################################################################
 
 # some more ls aliases
@@ -26,33 +40,20 @@ else
   source /usr/share/autojump/autojump.bash 2>/dev/null
 fi
 
-# If this flag is set, then autostart was already called
-if [ -z "$_AUTOSTART_FINISHED" ]
-then
-  # In some versions of .bashrc, .bash_aliases is never called,
-  # so we might need to call it ourselves
-  [ ! -f ~/.bash_aliases ] || . ~/.bash_aliases
-
-  # If .bash_aliases did not call autostart (it should),
-  # we call it here
-  if [ -z "$_AUTOSTART_FINISHED" ] && [ -f ~/.shared_autostart ]
-  then
-    # Shared autostart commands (with or without output)
-    . ~/.shared_autostart --all
-  fi
-fi
-unset _AUTOSTART_FINISHED
-
 # Load nvm
 if [ -s "$NVM_DIR/nvm.sh" ]
 then
-  \. "$NVM_DIR/nvm.sh" # This loads nvm
+  . "$NVM_DIR/nvm.sh" # This loads nvm
 fi
 .
 w
 # If the ls alias is not present in the file, add it to the end
-# (this is to make sure that the following change does not result in an error)
-r !if [ -z "$(grep "alias ls=" %)" ]; then echo -e "\nalias ls=\n"; else echo ""; fi
+# (this is to make sure that the ls alias change to exa does not result in an error)
+r !if [ -z "$(grep 'alias ls=' %)" ]; then echo -e "\nalias ls="; fi
+# If a call to .bash_aliases is not present in the file, add it to the end
+r !if [ -z "$(grep '~/.bash_aliases' %)" ]; then echo -e "\n[ ! -f ~/.bash_aliases ] || . ~/.bash_aliases"; fi
+# If neofetch is not present in the file, add it to the end
+r !if [ -z "$(grep 'neofetch' %)" ]; then echo "\nneofetch"; fi
 w
 # Change ls alias to use exa
 ,s/alias ls=.*$/alias ls='exa --color=always --group-directories-first'/

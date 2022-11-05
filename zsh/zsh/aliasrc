@@ -1,9 +1,1 @@
-#!/bin/zsh
-
-# Shared autostart commands (no output)
-if [ -f ~/.shared_autostart ]; then
-    . ~/.shared_autostart --no-output
-fi
-
-# Load shared aliases if existent.
-[ -f "$HOME/.shared_aliases" ] && source "$HOME/.shared_aliases"
+../../shell-shared/.shared_aliases
