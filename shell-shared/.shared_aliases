@@ -1,8 +1,5 @@
 #!/bin/sh
 
-EDITOR=vim
-export EDITOR
-
 exists ()
 {
   type "$1" >/dev/null 2>&1
@@ -115,7 +112,7 @@ fi
 if exists pacman
 then
   alias update='sudo pacman -Syu'
- 
+
   if exists paru
   then
     aur_helper='paru'
@@ -207,14 +204,4 @@ fi
 if exists nvim
 then
   alias vim='nvim'
-fi
-
-if [ -f /usr/bin/chromium ]
-then
-  export CHROME_EXECUTABLE="/usr/bin/chromium"
-fi
-
-if exists nix-channel
-then
-  export NIX_PATH=$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels${NIX_PATH:+:$NIX_PATH}
 fi

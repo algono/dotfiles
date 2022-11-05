@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Set default editor
+export EDITOR=vim
+
 # Add local binaries to PATH
 [ ! -d "$HOME/.local/bin" ] || PATH=$PATH:"$HOME/.local/bin"
 
@@ -15,8 +18,26 @@
 # Load nvm environment variables
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 
+# Use Chromium as "CHROME_EXECUTABLE" for Flutter
+if [ -f /usr/bin/chromium ]
+then
+  export CHROME_EXECUTABLE="/usr/bin/chromium"
+fi
+
+################################
+##### Nix package manager ######
+################################
+
+# Load NIX_PATH env
+if [ -d "/nix" ]
+then
+  export NIX_PATH=$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels${NIX_PATH:+:$NIX_PATH}
+fi
+
 # Load nix profile (if available)
 if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then . "$HOME/.nix-profile/etc/profile.d/nix.sh"; fi
 
 # Load nix home manager session variables (if available)
 if [ -e "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"; fi
+
+################################
