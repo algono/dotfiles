@@ -31,6 +31,14 @@ $a
 alias la='ls -al'
 alias l='la'
 alias ll='ls -l'
+.
+w
+# If the ls alias is not present in the file, add it to the end
+# (this is to make sure that the ls alias change to exa does not result in an error)
+r !if [ -z "$(grep 'alias ls=' %)" ]; then echo -e "\nalias ls="; fi
+# If a call to .bash_aliases is not present in the file, add it to the end
+r !if [ -z "$(grep '~/.bash_aliases' %)" ]; then echo -e "\n[ ! -f ~/.bash_aliases ] || . ~/.bash_aliases"; fi
+a
 
 # Load zoxide if installed, else load autojump
 if exists zoxide
@@ -47,11 +55,6 @@ then
 fi
 .
 w
-# If the ls alias is not present in the file, add it to the end
-# (this is to make sure that the ls alias change to exa does not result in an error)
-r !if [ -z "$(grep 'alias ls=' %)" ]; then echo -e "\nalias ls="; fi
-# If a call to .bash_aliases is not present in the file, add it to the end
-r !if [ -z "$(grep '~/.bash_aliases' %)" ]; then echo -e "\n[ ! -f ~/.bash_aliases ] || . ~/.bash_aliases"; fi
 # If neofetch is not present in the file, add it to the end
 r !if [ -z "$(grep 'neofetch' %)" ]; then echo "\nneofetch"; fi
 w
