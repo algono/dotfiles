@@ -61,6 +61,7 @@ else
 fi
 
 # Custom ZSH Binds
+# (Ctrl+Space for autosuggest)
 bindkey '^ ' autosuggest-accept
 
 # Load aliases and shortcuts if existent.
