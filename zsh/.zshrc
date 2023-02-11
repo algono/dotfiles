@@ -51,6 +51,10 @@ if [ -f /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme ]
 then
   # If the Arch Linux package 'zsh-theme-powerlevel10k' is installed, source it
   source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+elif [ -f ~/.zplug/repos/romkatv/powerlevel10k/powerlevel10k.zsh-theme ]
+then
+  # If it was installed through zplug, source it
+  source ~/.zplug/repos/romkatv/powerlevel10k/powerlevel10k.zsh-theme
 else
   # In any other case, assume that it is located in the home folder
   source ~/powerlevel10k/powerlevel10k.zsh-theme
@@ -70,8 +74,8 @@ then
   source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 else
   # Ubuntu-based locations
-  source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
-  source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+  [ ! -d /usr/share/zsh-autosuggestions ] || source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
+  [ ! -d /usr/share/zsh-syntax-highlighting ] || source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 fi
 
 # Load zoxide if installed, else load autojump

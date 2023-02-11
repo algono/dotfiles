@@ -33,8 +33,8 @@ ex ()
 
 # ls aliases
 alias ls='exa --color=always --group-directories-first'
-alias la='ls -al'
-alias l='la'
+alias l='ls -lah'
+alias la='ls -la'
 alias ll='ls -l'
 
 # (WSL) xdg-open directories in file explorer (for autojump)
