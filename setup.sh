@@ -8,7 +8,7 @@ elif uname -r | grep -iq manjaro; then cp ~/dotfiles/.bash-presets/.bashrc-manja
 else cp ~/dotfiles/.bash-presets/.bashrc-wsl ~/dotfiles/bash/.bashrc
 fi
 
-[ -f ~/.zshrc ] && rm ~/.zshrc
+[ -f ~/.zshrc ] && mv ~/.zshrc ~/.zshrc.bak
 
 ed ~/dotfiles/bash/.bashrc < ~/dotfiles/.patches/bashrc-patch.ed
 
