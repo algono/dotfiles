@@ -20,10 +20,10 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
 # Ubuntu 20.10 or later?
 if (dpkg --compare-versions "$DISTRIB_RELEASE" "ge" "20.10")
 then
-  sudo apt-get -y install --no-install-recommends exa
+  sudo apt-get -y install --no-install-recommends eza
 else
   sudo apt-get -y install --no-install-recommends cargo
-  cargo install exa
+  cargo install eza
 fi
 
 # Ubuntu 21.04 or later?

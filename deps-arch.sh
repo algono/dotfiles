@@ -3,7 +3,7 @@
 # Install pacman packages
 sudo pacman -Sy && \
   sudo pacman -S --noconfirm --needed \
-    exa \
+    eza \
     zoxide \
     bat \
     neofetch \
