@@ -239,7 +239,7 @@ garc() {
     local positional_args=()
 
     # --- Argument Parsing ---
-    while [[ $# -gt 0 ]]; do
+    while [ $# -gt 0 ]; do
         case $1 in
             -g|--include-git) include_git=1; shift ;;
             -d|--include-date) include_date=1; shift ;;
@@ -266,11 +266,10 @@ garc() {
     name="${name}.zip"
 
     # If you didn't specify a path (no slashes), put it safely in the parent directory
-    if [[ "$name" != */* ]]; then
-        output_path="../$name"
-    else
-        output_path="$name"
-    fi
+    case "$name" in
+      */*) output_path="$name" ;;
+      *)   output_path="../$name" ;;
+    esac
 
     # --- Overwrite Safety Check ---
     if [ -e "$output_path" ]; then
