@@ -206,3 +206,125 @@ if exists nvim
 then
   alias vim='nvim'
 fi
+
+# Alias for the fd program (an improved find command) for Debian-based distros.
+if exists fdfind
+then
+  # If we actually have an "fd" command that's not fdfind,
+  # that means it comes from the "fdclone" Debian package,
+  # so we set an alias for it to make sure it still works
+  if exists fd
+  then
+    alias fdclone='command fd'
+  fi
+  # Set fd alias
+  alias fd='fdfind'
+fi
+
+# Custom git-related command to archive repos
+garc() {
+    # --- Git Root Guard Clause ---
+    if [ ! -e ".git" ]; then
+        echo "⚠️  Oops! You are not at the root of a Git repository."
+        echo "Please navigate to your project's root folder (where the .git folder is)."
+        return 1
+    fi
+
+    # Initialize variables
+    # ${PWD##*/} grabs the current directory name (equivalent to Get-Item . in PowerShell)
+    local name="${PWD##*/}"
+    local include_git=0
+    local include_date=0
+    local force=0
+    local positional_args=()
+
+    # --- Argument Parsing ---
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            -g|--include-git) include_git=1; shift ;;
+            -d|--include-date) include_date=1; shift ;;
+            -f|--force) force=1; shift ;;
+            -*) echo "Unknown option: $1"; return 1 ;;
+            *) positional_args+=("$1"); shift ;;
+        esac
+    done
+
+    # If a custom name was provided, use it
+    if [ ${#positional_args[@]} -gt 0 ]; then
+        name="${positional_args[0]}"
+    fi
+
+    # Strip .zip if you manually typed it (using bash string manipulation)
+    name="${name%.zip}"
+
+    # Prepend today's date (format: YYYYMMDD) if the flag is present
+    if [ "$include_date" -eq 1 ]; then
+        name="$(date +%Y%m%d)-$name"
+    fi
+
+    # Guarantee it has the .zip extension
+    name="${name}.zip"
+
+    # If you didn't specify a path (no slashes), put it safely in the parent directory
+    if [[ "$name" != */* ]]; then
+        output_path="../$name"
+    else
+        output_path="$name"
+    fi
+
+    # --- Overwrite Safety Check ---
+    if [ -e "$output_path" ]; then
+        if [ "$force" -eq 1 ]; then
+            echo "🗑️  Removing existing archive..."
+            rm -f "$output_path"
+        else
+            echo "⚠️  An archive named '$output_path' already exists!"
+            echo "Use the -f or --force flag if you want to overwrite it."
+            return 1
+        fi
+    fi
+
+    if [ "$include_git" -eq 1 ]; then
+        # 1. Guard clause: Check for fd (Ubuntu/Debian sometimes installs it as fdfind)
+        local fd_cmd="fd"
+        if ! command -v fd >/dev/null 2>&1; then
+            if command -v fdfind >/dev/null 2>&1; then
+                fd_cmd="fdfind"
+            else
+                echo "⚠️  Oops! 'fd' is not installed."
+                echo "You can install it via: sudo apt install fd-find"
+                return 1
+            fi
+        fi
+
+        # 2. Guard clause: Check if zip is installed
+        if ! command -v zip >/dev/null 2>&1; then
+            echo "⚠️  Oops! The 'zip' command was not found."
+            echo "You can install it via: sudo apt install zip"
+            return 1
+        fi
+
+        echo "📦 Creating time-capsule archive (with Git history) at $output_path..."
+
+        # -nw disables wildcards so [locale] works perfectly!
+        # -q makes zip quiet so it doesn't spam your terminal
+        $fd_cmd --type f --hidden | zip -nw -q "$output_path" -@
+
+        if [ $? -eq 0 ]; then
+            echo "✅ Success! Archive ready outside the repo at $output_path"
+        else
+            echo "❌ Zip command failed. Check your permissions."
+        fi
+
+    else
+        echo "⚡ Creating pure code snapshot (no history) at $output_path..."
+
+        git archive --format=zip HEAD -o "$output_path"
+
+        if [ $? -eq 0 ]; then
+            echo "✅ Success! Archive ready outside the repo at $output_path"
+        else
+            echo "❌ git archive failed. Are you sure this repository has at least one commit?"
+        fi
+    fi
+}
