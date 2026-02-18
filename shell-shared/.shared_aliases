@@ -308,10 +308,9 @@ garc() {
 
     printf '%s\n' "📦 Creating time-capsule archive (with Git history) at $output_path..."
 
-    # -nw disables wildcards so [locale] works perfectly!
-    # -q makes zip quiet so it doesn't spam your terminal
-    # We ask Git for tracked/untracked files (respecting .gitignore), and 'find' for the .git folder!
-    if { git ls-files --cached --others --exclude-standard; find .git -type f; } | zip -nw -q "$output_path" -@; then
+    # FIX: -c core.quotePath=false forces Git to output raw UTF-8 accents, and the -UN=UTF8 flag tells zip to expect UTF-8 input, which prevents it from mangling accented filenames.
+    # The -nw flag prevents zip from adding extra directory info, and the -q flag makes it run quietly without outputting all the file names it's adding.
+    if { git -c core.quotePath=false ls-files --cached --others --exclude-standard; find .git -type f; } | zip -UN=UTF8 -nw -q "$output_path" -@; then
         printf '%s\n' "✅ Success! Archive ready outside the repo at $output_path"
     else
         printf '%s\n' "❌ Zip command failed. Check your permissions."
