@@ -51,13 +51,12 @@ then
   }
 fi
 
-dotfilesDir=~/dotfiles
+# Dotfiles management
+DOTFILES_DIR=~/dotfiles
 
 # dotfiles stow function
 dotfiles ()
 {
-  # local is fine for Bash/Zsh
-  local args packages now
   args=""
   packages=""
 
@@ -65,12 +64,12 @@ dotfiles ()
     case "$1" in
       -a|--all)
         shift
-        packages="$(find "$dotfilesDir"/* -maxdepth 1 -name ".*" -o -type d -prune -printf "%f\n")"
+        packages="$(find "$DOTFILES_DIR"/* -maxdepth 1 -name ".*" -o -type d -prune -printf "%f\n")"
         ;;
       -r|--rebuild)
         shift
         # Re-using the find logic here
-        packages="$(find "$dotfilesDir"/* -maxdepth 1 -name ".*" -o -type d -prune -printf "%f\n")"
+        packages="$(find "$DOTFILES_DIR"/* -maxdepth 1 -name ".*" -o -type d -prune -printf "%f\n")"
         if [ -f /etc/skel/.bashrc ]; then
           now="$(date -Iseconds)"
           cp -f ~/dotfiles/bash/.bashrc ~/.bashrc-"$now".bak
@@ -96,8 +95,12 @@ dotfiles ()
   done
 
   # Using printf/xargs combo to handle potential spaces
-  printf "%s %s" "$args" "$packages" | xargs /usr/bin/stow -d "$dotfilesDir" -t ~
+  printf "%s %s" "$args" "$packages" | xargs /usr/bin/stow -d "$DOTFILES_DIR" -t ~
+
+  # Unset variables to avoid polluting the shell environment
+  unset args packages now
 }
+# Alias for dotfiles function (for convenience)
 alias dtf='dotfiles'
 
 # youtube-dl aliases
@@ -220,7 +223,7 @@ then
 fi
 
 # Custom git-related command to archive repos
-garc() (
+garc() {
   # --- Git Root Guard Clause ---
   if [ ! -e ".git" ]; then
     printf '%s\n' "⚠️  Oops! You are not at the root of a Git repository."
@@ -229,9 +232,6 @@ garc() (
   fi
 
   # Initialize variables
-  # No 'local' needed because we are in a subshell
-  # thanks to using parentheses around the function body (garc() ( ... ))
-  # instead of curly braces (garc() { ... })
   name="${PWD##*/}" # ${PWD##*/} grabs the current directory name
   include_git=0
   include_date=0
@@ -327,4 +327,7 @@ garc() (
         printf '%s\n' "❌ git archive failed. Are you sure this repository has at least one commit?"
     fi
   fi
-)
+
+  # Unset variables to avoid polluting the shell environment
+  unset name include_git include_date force name_override output_path fd_cmd
+}
