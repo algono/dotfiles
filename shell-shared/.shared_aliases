@@ -10,20 +10,20 @@ exists ()
 # # usage: ex <file>
 ex ()
 {
-  if [ -f $1 ] ; then
-    case $1 in
-      *.tar.bz2)   tar xjf $@     ;;
-      *.tar.gz)    tar xzf $@     ;;
-      *.tar.xz)    tar xJf $@     ;;
-      *.bz2)       bunzip2 $@     ;;
-      *.rar)       unrar x $@     ;;
-      *.gz)        gunzip $@      ;;
-      *.tar)       tar xf $@      ;;
-      *.tbz2)      tar xjf $@     ;;
-      *.tgz)       tar xzf $@     ;;
-      *.zip)       unzip $@       ;;
-      *.Z)         uncompress $@  ;;
-      *.7z)        7z x $@        ;;
+  if [ -f "$1" ] ; then
+    case "$1" in
+      *.tar.bz2)   tar xjf "$@"     ;;
+      *.tar.gz)    tar xzf "$@"     ;;
+      *.tar.xz)    tar xJf "$@"     ;;
+      *.bz2)       bunzip2 "$@"     ;;
+      *.rar)       unrar x "$@"     ;;
+      *.gz)        gunzip "$@"      ;;
+      *.tar)       tar xf "$@"      ;;
+      *.tbz2)      tar xjf "$@"     ;;
+      *.tgz)       tar xzf "$@"     ;;
+      *.zip)       unzip "$@"       ;;
+      *.Z)         uncompress "$@"  ;;
+      *.7z)        7z x "$@"        ;;
       *)           echo "'$1' cannot be extracted via ex()" ;;
     esac
   else
