@@ -228,9 +228,8 @@ garc() {
         return 1
     fi
 
-    # Initialize variables
-    # ${PWD##*/} grabs the current directory name (equivalent to Get-Item . in PowerShell)
-    local name="${PWD##*/}"
+    # Initialize variables with defaults
+    local name="${PWD##*/}" # ${PWD##*/} grabs the current directory name
     local include_git=0
     local include_date=0
     local force=0
@@ -247,13 +246,9 @@ garc() {
         esac
     done
 
-    # If a custom name was provided, use it,
-    # otherwise default to the current directory name (without .zip)
-    local name
+    # If a custom name was provided, use it
     if [ -n "$name_override" ]; then
         name="$name_override"
-    else
-        name="${PWD##*/}"
     fi
 
     # Strip .zip if you manually typed it (using bash string manipulation)
@@ -286,16 +281,23 @@ garc() {
     fi
 
     if [ "$include_git" -eq 1 ]; then
-        # 1. Guard clause: Check for fd (Ubuntu/Debian sometimes installs it as fdfind)
-        local fd_cmd="fd"
-        if ! command -v fd >/dev/null 2>&1; then
-            if command -v fdfind >/dev/null 2>&1; then
-                fd_cmd="fdfind"
-            else
-                echo "⚠️  Oops! 'fd' is not installed."
-                echo "You can install it via: sudo apt install fd-find"
-                return 1
-            fi
+        # 1. Guard clause: Check for fd (Ubuntu/Debian sometimes install it as fdfind)
+        local fd_cmd
+        if command -v fdfind >/dev/null 2>&1; then
+            # If the Ubuntu/Debian "fdfind" command exists,
+            # we use it directly (functions cannot use aliases)
+            fd_cmd="fdfind"
+        elif command -v fd >/dev/null 2>&1; then
+            # This only hits if a real binary named 'fd' exists on disk
+            # (it would normally wrongly see the fd alias we set for fdfind earlier and say true,
+            # but since we check for fdfind first, and we only set the fd alias if fdfind exists,
+            # this means that if we see a real 'fd' command, it's not the Debian fdfind package,
+            # so we can assume it's fd from another distro and use it directly)
+            fd_cmd="fd"
+        else
+            echo "⚠️  Oops! 'fd' is not installed."
+            echo "You can install it via: sudo apt install fd-find"
+            return 1
         fi
 
         # 2. Guard clause: Check if zip is installed
