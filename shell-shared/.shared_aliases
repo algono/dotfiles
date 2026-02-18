@@ -238,7 +238,7 @@ garc() {
   # If we ever need it to be fully POSIX-compliant (e.g. for using it in Alpine Linux or other non-typical shells),
   # we can either manually unset variables before each return call (which is a hassle),
   # or use a subshell to contain variable scope by declaring the function with parentheses: like garc() () instead of garc () {}, which is better but a bit less performant since it needs to spawn a subshell every time this is called.
-  local name, include_git, include_date, force, name_override, output_path, fd_cmd
+  local name include_git include_date force name_override output_path fd_cmd
 
   # Set default values
   name="${PWD##*/}" # ${PWD##*/} grabs the current directory name
