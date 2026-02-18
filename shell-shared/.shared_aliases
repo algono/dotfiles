@@ -56,49 +56,47 @@ dotfilesDir=~/dotfiles
 # dotfiles stow function
 dotfiles ()
 {
-  local args
-  local packages
-  args=()
-  packages=()
-  while test $# -gt 0; do
+  # local is fine for Bash/Zsh
+  local args packages now
+  args=""
+  packages=""
+
+  while [ $# -gt 0 ]; do
     case "$1" in
       -a|--all)
         shift
-        packages=("$(find $dotfilesDir/* -maxdepth 1 -name ".*" -o -type d -prune -printf "%f\n")")
+        packages="$(find "$dotfilesDir"/* -maxdepth 1 -name ".*" -o -type d -prune -printf "%f\n")"
         ;;
       -r|--rebuild)
         shift
-        packages=("$(find $dotfilesDir/* -maxdepth 1 -name ".*" -o -type d -prune -printf "%f\n")")
-        if [ -f /etc/skel/.bashrc ]
-        then
+        # Re-using the find logic here
+        packages="$(find "$dotfilesDir"/* -maxdepth 1 -name ".*" -o -type d -prune -printf "%f\n")"
+        if [ -f /etc/skel/.bashrc ]; then
           now="$(date -Iseconds)"
-          cp -f ~/dotfiles/bash/.bashrc ~/.bashrc-$now.bak
+          cp -f ~/dotfiles/bash/.bashrc ~/.bashrc-"$now".bak
           rm -f ~/.bashrc
           cp -f /etc/skel/.bashrc ~/dotfiles/bash/.bashrc
           ed ~/dotfiles/bash/.bashrc < ~/dotfiles/.patches/bashrc-patch.ed
-          tput setaf 10;
-          echo "################################################################"
-          echo "~/.bashrc was successfully rebuilt."
-          echo "A backup of the original was saved in ~/.bashrc-$now.bak"
-          echo "################################################################"
-          echo;tput sgr0
+          tput setaf 10; echo "################################################################"
+          echo "~/.bashrc was successfully rebuilt. Backup: ~/.bashrc-$now.bak"
+          echo "################################################################"; tput sgr0
         else
-          tput setaf 11;
-          echo "################################################################"
+          tput setaf 11; echo "################################################################"
           echo "WARNING: ~/.bashrc could not be rebuilt."
           echo "################################################################"
-          echo;tput sgr0
+          echo ; tput sgr0
         fi
-        args+="-R"
+        args="$args -R"
         ;;
       *)
-        args+="$1"
+        args="$args $1"
         shift
         ;;
     esac
   done
 
-  echo "$args[@] $packages[@]" | xargs /usr/bin/stow -d "$dotfilesDir" -t ~
+  # Using printf/xargs combo to handle potential spaces
+  printf "%s %s" "$args" "$packages" | xargs /usr/bin/stow -d "$dotfilesDir" -t ~
 }
 alias dtf='dotfiles'
 
