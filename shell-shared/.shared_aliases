@@ -234,7 +234,7 @@ garc() {
     local include_git=0
     local include_date=0
     local force=0
-    local positional_args=()
+    local name_override=""
 
     # --- Argument Parsing ---
     while [ $# -gt 0 ]; do
@@ -243,13 +243,17 @@ garc() {
             -d|--include-date) include_date=1; shift ;;
             -f|--force) force=1; shift ;;
             -*) echo "Unknown option: $1"; return 1 ;;
-            *) positional_args+=("$1"); shift ;;
+            *) name_override="$1"; shift ;;
         esac
     done
 
-    # If a custom name was provided, use it
-    if [ ${#positional_args[@]} -gt 0 ]; then
-        name="${positional_args[0]}"
+    # If a custom name was provided, use it,
+    # otherwise default to the current directory name (without .zip)
+    local name
+    if [ -n "$name_override" ]; then
+        name="$name_override"
+    else
+        name="${PWD##*/}"
     fi
 
     # Strip .zip if you manually typed it (using bash string manipulation)
