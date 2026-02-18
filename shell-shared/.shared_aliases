@@ -98,6 +98,8 @@ dotfiles ()
   printf "%s %s" "$args" "$packages" | xargs /usr/bin/stow -d "$DOTFILES_DIR" -t ~
 
   # Unset variables to avoid polluting the shell environment
+  # NOTE: If we ever need to return early from this function,
+  # we should instead either use local variables (losing 100% POSIX compliance) or a subshell (losing a bit of performance due to the extra process)
   unset args packages now
 }
 # Alias for dotfiles function (for convenience)
@@ -232,6 +234,13 @@ garc() {
   fi
 
   # Initialize variables
+  # Note: Using "local" works with bash/zsh, but it's not strictly POSIX-compliant.
+  # If we ever need it to be fully POSIX-compliant (e.g. for using it in Alpine Linux or other non-typical shells),
+  # we can either manually unset variables before each return call (which is a hassle),
+  # or use a subshell to contain variable scope by declaring the function with parentheses: like garc() () instead of garc () {}, which is better but a bit less performant since it needs to spawn a subshell every time this is called.
+  local name, include_git, include_date, force, name_override, output_path, fd_cmd
+
+  # Set default values
   name="${PWD##*/}" # ${PWD##*/} grabs the current directory name
   include_git=0
   include_date=0
@@ -327,7 +336,4 @@ garc() {
         printf '%s\n' "❌ git archive failed. Are you sure this repository has at least one commit?"
     fi
   fi
-
-  # Unset variables to avoid polluting the shell environment
-  unset name include_git include_date force name_override output_path fd_cmd
 }
