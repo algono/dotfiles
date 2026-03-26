@@ -308,13 +308,53 @@ garc() {
 
     printf '%s\n' "📦 Creating time-capsule archive (with Git history) at $output_path..."
 
-    # FIX: -c core.quotePath=false forces Git to output raw UTF-8 accents, and the -UN=UTF8 flag tells zip to expect UTF-8 input, which prevents it from mangling accented filenames.
-    # The -nw flag prevents zip from adding extra directory info, and the -q flag makes it run quietly without outputting all the file names it's adding.
-    if { git -c core.quotePath=false ls-files --cached --others --exclude-standard; find .git -type f; } | zip -UN=UTF8 -nw -q "$output_path" -@; then
+    # FIX: -c core.quotePath=false forces Git to output raw UTF-8 accents, and the -UN=UTF8 flag tells zip to expect UTF-8 input.
+    # The -nw flag prevents zip from adding extra directory info, and the -q flag makes it run quietly.
+    
+    {
+        # --- SUBMODULE FIX ---
+        if [ -f ".gitmodules" ]; then
+            # Extract submodule paths (safely slicing everything after the first space to support spaces in paths)
+            local sub_paths
+            sub_paths=$(git config --file .gitmodules --get-regexp path 2>/dev/null | sed 's/^[^ ]* //')
+            
+            if [ -n "$sub_paths" ]; then
+                # Remove the submodule root folders from the parent list so zip doesn't handle them blindly
+                # grep -vxF filters out exact line matches found in $sub_paths
+                git -c core.quotePath=false ls-files --cached --others --exclude-standard | grep -vxF "$sub_paths"
+                
+                # Ask each submodule for its own clean list of files (respecting its .gitignore)
+                printf "%s\n" "$sub_paths" | while IFS= read -r sub; do
+                    [ -z "$sub" ] && continue
+                    
+                    if [ -e "$sub/.git" ]; then
+                        # Get files by running Git "inside" the submodule and prefix them with the submodule path
+                        git -C "$sub" -c core.quotePath=false ls-files --cached --others --exclude-standard | sed "s|^|$sub/|"
+                        
+                        # Critical! Manually add the submodule's .git pointer file
+                        # If we don't include it, the reference will break upon extraction
+                        printf '%s\n' "$sub/.git"
+                    fi
+                done
+            else
+                git -c core.quotePath=false ls-files --cached --others --exclude-standard
+            fi
+        else
+            # Standard repo without submodules
+            git -c core.quotePath=false ls-files --cached --others --exclude-standard
+        fi
+        # ---------------------
+
+        # Finally, include the parent repo's git history
+        find .git -type f
+    } | zip -UN=UTF8 -nw -q "$output_path" -@
+
+    if [ $? -eq 0 ]; then
         printf '%s\n' "✅ Success! Archive ready outside the repo at $output_path"
     else
         printf '%s\n' "❌ Zip command failed. Check your permissions."
     fi
+
   else
     printf '%s\n' "⚡ Creating pure code snapshot (no history) at $output_path..."
 
